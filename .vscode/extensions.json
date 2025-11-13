@@ -5,6 +5,7 @@
 		"yzhang.markdown-all-in-one",
 		"davidanson.vscode-markdownlint",
 		"wallabyjs.quokka-vscode",
-		"editorconfig.editorconfig"
+		"editorconfig.editorconfig",
+		"dbaeumer.vscode-eslint"
 	]
 }

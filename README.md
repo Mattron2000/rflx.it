@@ -7,7 +7,9 @@ A website for UniUPO exam of Metodologie Web course
 ## Summary  <!-- omit in toc -->
 
 - [Prerequisites](#prerequisites)
-- [Start up](#start-up)
+- [How to run](#how-to-run)
+  - [Install dependencies](#install-dependencies)
+  - [Start up](#start-up)
 
 ---
 
@@ -17,7 +19,17 @@ A website for UniUPO exam of Metodologie Web course
 
 ---
 
-## Start up
+## How to run
+
+### Install dependencies
+
+Recreate node modules directory with exact version listed in `package-lock.json`
+
+```bash
+npm ci
+```
+
+### Start up
 
 ```bash
 npm start
