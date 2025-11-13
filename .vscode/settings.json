@@ -1,12 +1,12 @@
 {
-    "files.associations": {
-        "LICENSE": "plaintext",
-        "*.json": "json"
-    },
-    "[markdown]": {
-        "editor.formatOnSave": true,
-        "editor.codeActionsOnSave": {
-            "source.fixAll.markdownlint": "always"
-        }
-    }
+	"files.associations": {
+		"LICENSE": "plaintext",
+		"*.json": "json"
+	},
+	"[markdown]": {
+		"editor.formatOnSave": true,
+		"editor.codeActionsOnSave": {
+			"source.fixAll.markdownlint": "always"
+		}
+	}
 }

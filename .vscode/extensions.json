@@ -1,9 +1,10 @@
 {
-    "recommendations": [
-        "mhutchie.git-graph",
-        "bierner.github-markdown-preview",
-        "yzhang.markdown-all-in-one",
-        "davidanson.vscode-markdownlint",
-        "wallabyjs.quokka-vscode"
-    ]
+	"recommendations": [
+		"mhutchie.git-graph",
+		"bierner.github-markdown-preview",
+		"yzhang.markdown-all-in-one",
+		"davidanson.vscode-markdownlint",
+		"wallabyjs.quokka-vscode",
+		"editorconfig.editorconfig"
+	]
 }
