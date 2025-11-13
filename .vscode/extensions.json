@@ -3,6 +3,7 @@
         "mhutchie.git-graph",
         "bierner.github-markdown-preview",
         "yzhang.markdown-all-in-one",
-        "davidanson.vscode-markdownlint"
+        "davidanson.vscode-markdownlint",
+        "wallabyjs.quokka-vscode"
     ]
 }

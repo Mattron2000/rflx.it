@@ -1,0 +1,24 @@
+{
+    "name": "rflx.it",
+    "version": "0.0.1",
+    "description": "A website for UniUPO exam, a social for photographers and models",
+    "keywords": [
+        "uniupo"
+    ],
+    "homepage": "https://github.com/Mattron2000/rflx.it#readme",
+    "bugs": {
+        "url": "https://github.com/Mattron2000/rflx.it/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Mattron2000/rflx.it.git"
+    },
+    "license": "GPL-3.0-or-later",
+    "author": "Palmieri Matteo",
+    "type": "module",
+    "main": "src",
+    "scripts": {
+        "start": "node .",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    }
+}
