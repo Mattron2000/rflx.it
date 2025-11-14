@@ -11,3 +11,14 @@ max_line_length = 80
 
 [*.md]
 indent_style = space
+
+## Non-configurable Prettier behaviors
+# charset
+# insert_final_newline
+# trim_trailing_whitespace
+
+## Configurable Prettier behaviors
+# end_of_line
+# indent_style
+# indent_size
+# max_line_length

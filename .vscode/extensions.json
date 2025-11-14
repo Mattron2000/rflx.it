@@ -6,6 +6,7 @@
 		"davidanson.vscode-markdownlint",
 		"wallabyjs.quokka-vscode",
 		"editorconfig.editorconfig",
-		"dbaeumer.vscode-eslint"
+		"dbaeumer.vscode-eslint",
+		"esbenp.prettier-vscode"
 	]
 }

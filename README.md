@@ -1,10 +1,10 @@
-# rflx.it  <!-- omit in toc -->
+# rflx.it <!-- omit in toc -->
 
 A website for UniUPO exam of Metodologie Web course
 
 ---
 
-## Summary  <!-- omit in toc -->
+## Summary <!-- omit in toc -->
 
 - [Prerequisites](#prerequisites)
 - [How to run](#how-to-run)

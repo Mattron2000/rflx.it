@@ -1,13 +1,10 @@
 {
-	"files.associations": {
-		"LICENSE": "plaintext",
-		"*.json": "json"
-	},
+	"files.associations": { "LICENSE": "plaintext", "*.json": "json" },
 	"[markdown]": {
 		"editor.formatOnSave": true,
-		"editor.codeActionsOnSave": {
-			"source.fixAll.markdownlint": "always"
-		}
+		"editor.codeActionsOnSave": { "source.fixAll.markdownlint": "always" }
 	},
-	"javascript.validate.enable": false
+	"javascript.validate.enable": false,
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"prettier.configPath": "prettier.config.js"
 }
