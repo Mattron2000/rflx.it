@@ -1,10 +1,12 @@
 import express from 'express';
 
 import env from './config/env.js';
-import { log } from './logger.js';
+import logger, { log } from './logger.js';
 import route from "./routes/root.js";
 
 const app = express();
+
+app.use(logger());
 
 app.use('/', route);
 

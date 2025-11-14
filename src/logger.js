@@ -1,4 +1,9 @@
+import morgan from 'morgan';
+
 import env, { ENV_TYPE } from './config/env.js';
+
+export default () =>
+	env.NODE_ENV === ENV_TYPE.DEVELOPMENT ? morgan('dev') : () => {};
 
 export function log(...args) {
 	if (env.NODE_ENV !== ENV_TYPE.DEVELOPMENT) return;
