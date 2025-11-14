@@ -6,5 +6,7 @@
 	},
 	"javascript.validate.enable": false,
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
-	"prettier.configPath": "prettier.config.js"
+	"prettier.configPath": "prettier.config.js",
+	"javascript.updateImportsOnFileMove.enabled": "always",
+	"javascript.preferences.importModuleSpecifierEnding": "js"
 }

@@ -3,7 +3,8 @@
 	"version": "0.0.1",
 	"description": "A website for UniUPO exam, a social for photographers and models",
 	"keywords": [
-		"uniupo"
+		"uniupo",
+		"express"
 	],
 	"homepage": "https://github.com/Mattron2000/rflx.it#readme",
 	"bugs": {
@@ -18,7 +19,7 @@
 	"type": "module",
 	"main": "src",
 	"scripts": {
-		"start": "node .",
+		"start": "node --env-file=.env .",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"devDependencies": {
@@ -28,5 +29,8 @@
 		"eslint": "^9.39.1",
 		"globals": "^16.5.0",
 		"prettier": "3.6.2"
+	},
+	"dependencies": {
+		"express": "^5.1.0"
 	}
 }

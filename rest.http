@@ -1,0 +1,4 @@
+@URL=http://localhost
+@PORT=3000
+
+GET {{URL}}:{{PORT}} HTTP/1.1
