@@ -2,7 +2,7 @@ import express from 'express';
 
 import env from './config/env.js';
 import logger, { log } from './logger.js';
-import route from "./routes/root.js";
+import route from './routes/root.js';
 
 const app = express();
 

@@ -11,4 +11,12 @@ function insertNewUser(name, surname, email, password) {
 	});
 }
 
-export default { insertNewUser };
+function selectAllUsers() {
+	return queryBuilder(TABLE_NAME).select('*');
+}
+
+function selectUserWhereId(id) {
+	return queryBuilder(TABLE_NAME).select('*').where({ id }).first();
+}
+
+export default { selectAllUsers, insertNewUser, selectUserWhereId };
