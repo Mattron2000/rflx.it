@@ -9,6 +9,7 @@
 		"dbaeumer.vscode-eslint",
 		"esbenp.prettier-vscode",
 		"humao.rest-client",
-		"christian-kohler.path-intellisense"
+		"christian-kohler.path-intellisense",
+		"yy0931.vscode-sqlite3-editor"
 	]
 }

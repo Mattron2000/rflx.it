@@ -10,7 +10,9 @@ export function log(...args) {
 
 	const stack = new Error().stack.split('\n')[2];
 
-	const filepath = stack.match(/[-\w]+.\w+(:\d+){2}$/)?.[0];
+	const filepath =
+		stack.match(/[-\w]+.\w+(:\d+){2}$/)?.[0]
+		|| stack.match(/[-\w]+.\w+(:\d+){2}\)$/)?.[0];
 
 	const filename = filepath.split(':')[0].split('?')[0];
 

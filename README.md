@@ -9,6 +9,7 @@ A website for UniUPO exam of Metodologie Web course
 - [Prerequisites](#prerequisites)
 - [How to run](#how-to-run)
   - [Install dependencies](#install-dependencies)
+  - [Create DB file](#create-db-file)
   - [Start up](#start-up)
 
 ---
@@ -27,6 +28,20 @@ Recreate node modules directory with exact version listed in `package-lock.json`
 
 ```bash
 npm ci
+```
+
+### Create DB file
+
+Create a blank DB file
+
+```bash
+npm run db:reset
+```
+
+Seed data into DB
+
+```bash
+npm run db:seed
 ```
 
 ### Start up

@@ -20,7 +20,9 @@
 	"main": "src",
 	"scripts": {
 		"start": "node --env-file=.env .",
-		"test": "nodemon --env-file=.env ."
+		"test": "nodemon --env-file=.env .",
+		"db:reset": "node --env-file=.env scripts/reset-db.js",
+		"db:seed": "node --env-file=.env scripts/seed-db.js"
 	},
 	"devDependencies": {
 		"@eslint/css": "^0.14.1",
@@ -33,6 +35,8 @@
 		"prettier": "3.6.2"
 	},
 	"dependencies": {
-		"express": "^5.1.0"
+		"better-sqlite3": "^12.4.1",
+		"express": "^5.1.0",
+		"knex": "^3.1.0"
 	}
 }
