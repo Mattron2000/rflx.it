@@ -1,4 +1,7 @@
+import bcrypt from 'bcrypt';
+
 import queryBuilder from '../db/queryBuilder.js';
+import env from '../config/env.js';
 
 const TABLE_NAME = 'users';
 
@@ -12,12 +15,16 @@ const TABLE_NAME = 'users';
  * @returns {Promise<any>} Promise resolving to the insert result.
  */
 function insertNewUser(name, surname, email, password) {
-	return queryBuilder(TABLE_NAME).insert({
-		name: name,
-		surname: surname,
-		email: email,
-		password: password
-	});
+	return bcrypt
+		.hash(password, env.BCRYPT_SALT)
+		.then((hash) =>
+			queryBuilder(TABLE_NAME).insert({
+				name: name,
+				surname: surname,
+				email: email,
+				password: hash
+			})
+		);
 }
 
 /**
