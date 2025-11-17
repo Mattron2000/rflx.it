@@ -11,3 +11,7 @@ GET {{URL}}:{{PORT}}/users HTTP/1.1
 @USER_ID=1
 
 GET {{URL}}:{{PORT}}/users/{{USER_ID}} HTTP/1.1
+
+###
+
+GET {{URL}}:{{PORT}}/session HTTP/1.1

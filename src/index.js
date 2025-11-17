@@ -1,10 +1,13 @@
 import express from 'express';
 
+import session from './config/session.js';
 import env from './config/env.js';
 import logger, { log } from './logger.js';
 import route from './routes/root.js';
 
 const app = express();
+
+app.use(session());
 
 app.use(logger());
 
