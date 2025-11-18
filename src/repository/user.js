@@ -46,4 +46,19 @@ function selectUserWhereId(id) {
 	return queryBuilder(TABLE_NAME).select('*').where({ id }).first();
 }
 
-export default { selectAllUsers, insertNewUser, selectUserWhereId };
+/**
+ * Selects a user from the database by email.
+ *
+ * @param {string} email - The email of the user.
+ * @returns {Promise<any>} Promise resolving to the matching user record.
+ */
+function selectUserWhereEmail(email) {
+	return queryBuilder(TABLE_NAME).select('*').where({ email }).first();
+}
+
+export default {
+	selectAllUsers,
+	insertNewUser,
+	selectUserWhereId,
+	selectUserWhereEmail
+};

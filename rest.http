@@ -15,3 +15,20 @@ GET {{URL}}:{{PORT}}/users/{{USER_ID}} HTTP/1.1
 ###
 
 GET {{URL}}:{{PORT}}/session HTTP/1.1
+
+###
+@USER_EMAIL=marco@example.com
+
+GET {{URL}}:{{PORT}}/auth/{{USER_EMAIL}} HTTP/1.1
+Content-Type: application/json
+
+###
+@USER_PASS=qwer
+
+GET {{URL}}:{{PORT}}/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+	"email": "{{USER_EMAIL}}",
+	"password": "{{USER_PASS}}"
+}
