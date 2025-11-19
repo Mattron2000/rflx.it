@@ -17,24 +17,16 @@ const passportAuthenticate = (failureRedirect) =>
 		failureMessage: true
 	});
 
-router.get('/login', passportAuthenticate('/fail'), authController.login);
-
 const isLoggedIn = (req, res, next) => {
-	if (req.isAuthenticated()) {
-		return next();
-	}
+	if (req.isAuthenticated()) return next();
+
 	return res.status(401).json({ message: 'not authenticated' });
 };
 
-router.get('/login/test', isLoggedIn, (req, res) => {
-	res.send("I'm in...");
-});
+router.get('/login', passportAuthenticate('/fail'), authController.login);
 
-router.get('/logout', isLoggedIn, (req, res, next) => {
-	req.logout((err) => {
-		if (err) return next(err);
-		res.send('logout success');
-	});
-});
+router.get('/login/test', isLoggedIn, authController.testLogin);
+
+router.get('/logout', isLoggedIn, authController.logout);
 
 export default router;
