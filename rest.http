@@ -32,3 +32,12 @@ Content-Type: application/json
 	"email": "{{USER_EMAIL}}",
 	"password": "{{USER_PASS}}"
 }
+
+###
+
+GET {{URL}}:{{PORT}}/auth/login/test HTTP/1.1
+
+###
+
+GET {{URL}}:{{PORT}}/auth/logout HTTP/1.1
+
