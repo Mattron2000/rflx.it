@@ -12,6 +12,8 @@ A website for UniUPO exam of Metodologie Web course
   - [Set the .env file](#set-the-env-file)
   - [Generate DB file](#generate-db-file)
     - [(OPTIONAL) Seed DB file with example values](#optional-seed-db-file-with-example-values)
+  - [Download assets files](#download-assets-files)
+    - [Bootstrap](#bootstrap)
   - [Start up](#start-up)
 
 ---
@@ -50,6 +52,24 @@ Seed data into DB
 
 ```bash
 npm run db:seed
+```
+
+### Download assets files
+
+Create containing directory
+
+```bash
+mkdir -p ./public/assets
+```
+
+#### Bootstrap
+
+```bash
+curl https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css -L -o ./public/assets/bootstrap.min.css
+```
+
+```bash
+curl https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js -L -o ./public/assets/bootstrap.bundle.min.js
 ```
 
 ### Start up
