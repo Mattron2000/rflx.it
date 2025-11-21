@@ -10,7 +10,8 @@ A website for UniUPO exam of Metodologie Web course
 - [How to run](#how-to-run)
   - [Install dependencies](#install-dependencies)
   - [Set the .env file](#set-the-env-file)
-  - [Create DB file](#create-db-file)
+  - [Generate DB file](#generate-db-file)
+    - [(OPTIONAL) Seed DB file with example values](#optional-seed-db-file-with-example-values)
   - [Start up](#start-up)
 
 ---
@@ -35,13 +36,15 @@ npm ci
 
 Create the .env file following .env.example
 
-### Create DB file
+### Generate DB file
 
 Create a blank DB file
 
 ```bash
 npm run db:reset
 ```
+
+#### (OPTIONAL) Seed DB file with example values
 
 Seed data into DB
 

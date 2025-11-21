@@ -11,6 +11,8 @@ app.use(session());
 
 app.use(logger());
 
+app.use(express.static('public'));
+
 app.use(rootCAD, rootRoute);
 
 const port_number = env.SERVER_PORT;
