@@ -6,7 +6,7 @@ import { defineConfig, globalIgnores } from 'eslint/config';
 
 // prettier-ignore
 export default defineConfig([
-	globalIgnores(['package-lock.json', 'public/assets/bootstrap.*']),
+	globalIgnores(['package-lock.json', 'public/assets/*.min.{js,css}']),
 	{ files: ['**/*.{js,mjs,cjs}'],	plugins: { js },		extends: ['js/recommended'],		languageOptions: { globals: globals.node } },
 	{ files: ['**/*.json'],					plugins: { json },	extends: ['json/recommended'],	language: 'json/json', },
 	{ files: ['**/*.jsonc'],				plugins: { json },	extends: ['json/recommended'],	language: 'json/jsonc', },
