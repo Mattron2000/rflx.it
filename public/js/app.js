@@ -1,7 +1,7 @@
-/* global document ejs */
+/* global document ejs page */
 'use strict';
 
-const app = document.getElementById('app');
+const main = document.getElementsByTagName('main')[0];
 
 const fetchTemplate = (name) => fetch(name).then((res) => res.text());
 
@@ -10,4 +10,8 @@ const renderTemplate = (target, name, data = {}) =>
 		(template) => (target.innerHTML = ejs.render(template, data))
 	);
 
-renderTemplate(app, 'body');
+page('/', () => renderTemplate(main, 'home'));
+page('/login', () => renderTemplate(main, 'login'));
+page('*', () => renderTemplate(main, 'notfound'));
+
+page();
