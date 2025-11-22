@@ -1,16 +1,13 @@
-/*global page document ejs*/
+/* global document ejs */
 'use strict';
 
-const h1 = document.getElementsByTagName('h1')[0];
+const app = document.getElementById('app');
 
-const fetchTemplate = (name) =>
-	fetch(`views/${name}.ejs`).then((res) => res.text());
+const fetchTemplate = (name) => fetch(name).then((res) => res.text());
 
-const renderTemplate = async (target, name, data = {}) =>
-	target.innerHTML = await fetchTemplate(name).then((template) =>
-		ejs.render(template, data)
+const renderTemplate = (target, name, data = {}) =>
+	fetchTemplate(`ejs/${name}.ejs`, data).then(
+		(template) => (target.innerHTML = ejs.render(template, data))
 	);
 
-page('/', () => renderTemplate(h1, 'home'));
-
-page();
+renderTemplate(app, 'body');

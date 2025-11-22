@@ -8,6 +8,6 @@ const router = Router();
 
 router.use(apiV1CAD, apiV1Route);
 
-router.use((_,res) => res.redirect('/'))
+router.use((_, res) => res.redirect('/'));
 
 export default router;
