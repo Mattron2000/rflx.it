@@ -7,6 +7,8 @@ import rootRoute, { currentApiDirectory as rootCAD } from './routes/root.js';
 
 const app = express();
 
+app.set('view engine', 'ejs');
+
 app.use(session());
 
 app.use(logger());
