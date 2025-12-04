@@ -9,8 +9,12 @@ const fetchTemplate = (name) =>
 const renderTemplate = (target, name, data = {}) =>
 	fetchTemplate(name, data).then((template) => (target.innerHTML = template));
 
-page('/', () => renderTemplate(main, 'home'));
-page('/login', () => renderTemplate(main, 'login'));
+page('/welcome', () => renderTemplate(main, 'welcome'));
+page('/login', () =>
+	renderTemplate(main, 'login')
+		.then(() => import('/js/login.js'))
+		.then((module) => module.init())
+);
 page('*', () => renderTemplate(main, 'notfound'));
 
 page();
