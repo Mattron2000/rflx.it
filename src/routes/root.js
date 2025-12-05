@@ -11,9 +11,7 @@ router.use(apiV1CAD, apiV1Route);
 
 router.use(pageCAD, pageRoute);
 
-router.get('/', (_, res) => res.redirect('/welcome'));
-
-router.get('/welcome', (_, res) => res.render('index'));
+router.get('/', (_, res) => res.render('index'));
 
 router.use((_, res) => res.redirect('/'));
 
