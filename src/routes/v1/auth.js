@@ -21,23 +21,12 @@ router.post(
 	}
 );
 
-router.get('/me', (req, res) => {
+router.get('/check', (req, res) => {
 	if (req.isAuthenticated())
-		return res.json({ authenticated: true, user: req.user });
+		return res.status(200).json({ authenticated: true, user: req.user });
 
-	res.json({ authenticated: false });
+	res.status(401).json({ authenticated: false });
 });
-
-// router.get('/protected-route', (req, res) => {
-// 	if (req.isAuthenticated())
-// 		res.send(
-// 			'<h1>You are authenticated</h1><p><a href="/api/v1/auth/logout">Logout and reload</a></p>'
-// 		);
-// 	else
-// 		res.send(
-// 			'<h1>You are not authenticated</h1><p><a href="/login">Login</a></p>'
-// 		);
-// });
 
 router.get('/login-success', (req, res) => {
 	res.send(
@@ -46,7 +35,7 @@ router.get('/login-success', (req, res) => {
 });
 
 router.get('/login-failure', (req, res) => {
-	res.send('You entered the wrong password.');
+	res.status(401).send('You entered the wrong password.');
 });
 
 router.delete('/logout', (req, res, next) => {

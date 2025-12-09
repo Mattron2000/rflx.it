@@ -9,7 +9,7 @@ const fetchTemplate = (name) =>
 const renderTemplate = (target, name, data = {}) =>
 	fetchTemplate(name, data).then((template) => (target.innerHTML = template));
 
-const checkAuth = () => fetch('/api/v1/auth/me').then((res) => res.json());
+const checkAuth = () => fetch('/api/v1/auth/check').then((res) => res.json());
 
 page('/', () =>
 	checkAuth().then((res) =>

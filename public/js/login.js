@@ -33,7 +33,19 @@ export function init() {
 			headers: new Headers({ 'Content-Type': 'application/json' }),
 			body: JSON.stringify({ email: email, password: password })
 		})
-			.then(async (response) => await streamToText(response.body))
-			.then((text) => (loginFeedback.innerHTML = text));
+			.then(async (response) => {
+				const text = streamToText(response.body);
+
+				const alert = document.querySelector('.alert');
+				alert.classList.toggle('alert-success', response.ok);
+				alert.classList.toggle('alert-warning', !response.ok);
+
+				return text;
+			})
+			.then((text) => {
+				loginFeedback.innerHTML = text;
+				document.querySelector('.alert').classList.remove('d-none');
+
+			});
 	});
 }

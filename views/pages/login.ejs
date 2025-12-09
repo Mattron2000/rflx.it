@@ -1,15 +1,52 @@
-<link rel="stylesheet" href="/css/login.css" />
+<link rel="stylesheet" href="css/login.css" />
+<script defer src="/js/login.js"></script>
 
-<form>
-	<div>
-		<label for="email">Enter your email: </label>
-		<input type="email" name="email" id="loginEmail" required />
-	</div>
-	<div>
-		<label for="password">Enter your password: </label>
-		<input type="password" name="password" id="loginPassword" required />
-	</div>
-	<button type="button" id="loginSubmit">Subscribe!</button>
-</form>
+<section class="vh-100">
+	<div class="container-fluid h-custom">
+		<div class="row d-flex justify-content-center align-items-center h-100">
+			<div class="col-md-9 col-lg-6 col-xl-5">
+				<img
+					src="/assets/rflx-logo.png"
+					alt="RFLX logo"
+					class="rounded mx-auto d-block"
+					id="login-logo" />
+			</div>
+			<div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+				<div class="alert alert-warning d-none" role="alert">
+					<strong class="card-body" id="loginFeedback"></strong>
+				</div>
+				<form>
+					<div data-mdb-input-init class="form-outline mb-4">
+						<input
+							type="email"
+							id="loginEmail"
+							class="form-control form-control-lg"
+							placeholder="Enter a valid email address" />
+						<label class="form-label" for="loginEmail">Email address</label>
+					</div>
 
-<h1 id="loginFeedback"></h1>
+					<div data-mdb-input-init class="form-outline mb-3">
+						<input
+							type="password"
+							id="loginPassword"
+							class="form-control form-control-lg"
+							placeholder="Enter password" />
+						<label class="form-label" for="loginPassword">Password</label>
+					</div>
+
+					<div class="text-center text-lg-start mt-4 pt-2">
+						<button
+							id="loginSubmit"
+							type="button"
+							data-mdb-button-init
+							data-mdb-ripple-init
+							class="btn btn-primary btn-lg"
+							style="padding-left: 2.5rem; padding-right: 2.5rem">
+							Login
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>

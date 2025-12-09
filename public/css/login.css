@@ -1,0 +1,30 @@
+.divider:after,
+.divider:before {
+	content: '';
+	flex: 1;
+	height: 1px;
+	background: #eee;
+}
+
+.h-custom {
+	height: calc(100% - 73px);
+}
+
+@media (max-width: 450px) {
+	.h-custom {
+		height: 100%;
+	}
+}
+
+#rflx-logo {
+	animation: rotate 3.5s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+}
+
+@keyframes rotate {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
