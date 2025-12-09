@@ -14,7 +14,6 @@ A website for UniUPO exam of Metodologie Web course
     - [(OPTIONAL) Seed DB file with example values](#optional-seed-db-file-with-example-values)
   - [Download assets files](#download-assets-files)
     - [Bootstrap](#bootstrap)
-    - [EJS](#ejs)
     - [Page.js](#pagejs)
   - [Start up](#start-up)
 
@@ -72,12 +71,6 @@ curl https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css -L 
 
 ```bash
 curl https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js -L -o ./public/assets/bootstrap.bundle.min.js
-```
-
-#### EJS
-
-```bash
-curl https://github.com/mde/ejs/releases/download/v3.1.10/ejs.min.js -L -o ./public/assets/ejs.min.js
 ```
 
 #### Page.js
