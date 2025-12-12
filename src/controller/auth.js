@@ -7,29 +7,31 @@ const check = (req, res) =>
 		res.status(200).json({ authenticated: true, user: req.user })
 	:	res.status(401).json({ authenticated: false });
 
-const login = () => {
-	return [
-		passport.authenticate('local', {
-			failureRedirect: 'login-failure',
-			successRedirect: 'login-success'
-		}),
-		(err, req, res, next) => {
-			if (err) return next(err);
-		}
-	];
+const login = (req, res, next) => {
+	passport.authenticate('local', (err, user, info) => {
+		if (err) return next(err);
+
+		if (!user)
+			return res
+				.status(401)
+				.json({ message: info?.message || 'Invalid credentials' });
+
+		req.login(user, (err) => {
+			err ?
+				res.status(401).json({ message: err?.message || 'Invalid credentials' })
+			:	res
+					.status(200)
+					.json({
+						message: 'Login successful',
+						user: { name: user.name, surname: user.surname, email: user.email }
+					});
+		});
+	})(req, res, next);
 };
-
-const login_success = (req, res) =>
-	res.send(
-		'<p>You successfully logged in. --> <a href="/home">Go to protected route</a></p>'
-	);
-
-const login_failure = (req, res) =>
-	res.status(401).send('You entered the wrong password.');
 
 const logout = (req, res, next) =>
 	!req.isAuthenticated() ?
-		res.send(304)
-	:	req.logout((err) => (err ? next(err) : res.send(200)));
+		res.sendStatus(304)
+	:	req.logout((err) => (err ? next(err) : res.sendStatus(200)));
 
-export default { check, login, login_success, login_failure, logout };
+export default { check, login, logout };

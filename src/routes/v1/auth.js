@@ -14,9 +14,8 @@ router.use(json());
 router.get('/check', authController.check);
 
 router.post('/login', authController.login);
-router.get('/login-success', authController.login_success);
-router.get('/login-failure', authController.login_failure);
 
 router.delete('/logout', authController.logout);
+
 
 export default router;

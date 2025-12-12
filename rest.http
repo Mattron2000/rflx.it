@@ -1,31 +1,10 @@
-@URL=http://localhost
-@PORT=3000
-
-GET {{URL}}:{{PORT}} HTTP/1.1
+GET {{URL}}:{{PORT}}
 
 ###
+@USER_EMAIL=mario@example.com
+@USER_PASS=12341234
 
-GET {{URL}}:{{PORT}}/users HTTP/1.1
-
-###
-@USER_ID=1
-
-GET {{URL}}:{{PORT}}/users/{{USER_ID}} HTTP/1.1
-
-###
-
-GET {{URL}}:{{PORT}}/session HTTP/1.1
-
-###
-@USER_EMAIL=marco@example.com
-
-GET {{URL}}:{{PORT}}/auth/{{USER_EMAIL}} HTTP/1.1
-Content-Type: application/json
-
-###
-@USER_PASS=qwer
-
-GET {{URL}}:{{PORT}}/auth/login HTTP/1.1
+POST {{URL}}:{{PORT}}/{{API_AUTH}}/login
 Content-Type: application/json
 
 {
@@ -35,9 +14,4 @@ Content-Type: application/json
 
 ###
 
-GET {{URL}}:{{PORT}}/auth/login/test HTTP/1.1
-
-###
-
-GET {{URL}}:{{PORT}}/auth/logout HTTP/1.1
-
+DELETE {{URL}}:{{PORT}}/{{API_AUTH}}/logout
