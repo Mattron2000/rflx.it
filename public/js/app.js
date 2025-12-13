@@ -15,6 +15,11 @@ page('/login', () =>
 		.then(() => import('/js/login.js'))
 		.then((module) => module.init())
 );
+page('/register', () =>
+	renderTemplate(main, 'register')
+		.then(() => import('/js/register.js'))
+		.then((module) => module.init())
+);
 page('/:page_name', (ctx) => renderTemplate(main, ctx.params.page_name));
 page('/scripts/logout', () =>
 	fetch('/api/v1/auth/logout', { method: 'DELETE' })
