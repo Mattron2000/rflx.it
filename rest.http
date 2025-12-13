@@ -15,3 +15,19 @@ Content-Type: application/json
 ###
 
 DELETE {{URL}}:{{PORT}}/{{API_AUTH}}/logout
+
+###
+@USER_NAME=Marcello
+@USER_SURNAME=Mastroianni
+@USER_EMAIL=mastroianni@gmail.com
+@USER_PASS=marcello1924
+
+POST {{URL}}:{{PORT}}/{{API_AUTH}}/register
+Content-Type: application/json
+
+{
+	"name": "{{USER_NAME}}",
+	"surname": "{{USER_SURNAME}}",
+	"email": "{{USER_EMAIL}}",
+	"password": "{{USER_PASS}}"
+}
