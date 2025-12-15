@@ -1,26 +1,68 @@
-/* global document */
+/* global document bootstrap page */
 'use strict';
 
-async function streamToText(stream) {
-	const chunks = [];
-	const reader = stream.getReader();
+function hideSubmitButton() {
+	document.getElementById('loginFeedbackSubmit').classList.add('d-none');
+}
 
-	for (;;) {
-		const { done, value } = await reader.read();
-		if (done) break;
-		chunks.push(value);
+function showSubmitButton() {
+	document.getElementById('loginFeedbackSubmit').classList.remove('d-none');
+}
+
+function resetModal() {
+	document.getElementById('loginFeedbackTitle').innerHTML = '';
+	document.getElementById('loginFeedbackLabel').innerHTML = '';
+
+	hideSubmitButton();
+}
+
+function showModal() {
+	const modalEl = document.getElementById('loginFeedback');
+	const modal = new bootstrap.Modal(modalEl);
+
+	modal.show();
+}
+
+function hideModal() {
+	bootstrap.Modal.getInstance(document.getElementById('loginFeedback')).hide();
+}
+
+function setupModal(response) {
+	resetModal();
+
+	// it's all ok (login success) make submit button visible
+	if (response.ok) showSubmitButton();
+
+	// standard passport missing credentials
+	if (!response.title) {
+		document.getElementById('loginFeedbackTitle').innerHTML = response.messages;
+		showModal();
+		return;
+	} else
+		document.getElementById('loginFeedbackTitle').innerHTML = response.title;
+
+	let output;
+
+	// array of error causes
+	try {
+		const feedbacks = response.messages;
+		output = '<ul>';
+		feedbacks.forEach((message) => (output += '<li>' + message + '</li>'));
+		output += '</ul>';
+		// eslint-disable-next-line no-unused-vars
+	} catch (e) {
+		// single cause string
+		output = '<ul><li>' + response.messages + '</li></ul>';
 	}
 
-	const decoder = new TextDecoder();
-	return chunks
-		.map((chunk) => decoder.decode(chunk, { stream: true }))
-		.join('');
+	document.getElementById('loginFeedbackLabel').innerHTML = output;
+
+	showModal();
 }
 
 export function init() {
 	const loginEmail = document.getElementById('loginEmail');
 	const loginPassword = document.getElementById('loginPassword');
-	const loginFeedback = document.getElementById('loginFeedback');
 
 	const loginButton = document.getElementById('loginSubmit');
 
@@ -33,19 +75,14 @@ export function init() {
 			headers: new Headers({ 'Content-Type': 'application/json' }),
 			body: JSON.stringify({ email: email, password: password })
 		})
-			.then(async (response) => {
-				const text = streamToText(response.body);
+			.then((response) => response.json())
+			.then((res) => setupModal(res));
+	});
 
-				const alert = document.querySelector('.alert');
-				alert.classList.toggle('alert-success', response.ok);
-				alert.classList.toggle('alert-warning', !response.ok);
+	const loginFeedbackSubmit = document.getElementById('loginFeedbackSubmit');
 
-				return text;
-			})
-			.then((text) => {
-				loginFeedback.innerHTML = text;
-				document.querySelector('.alert').classList.remove('d-none');
-
-			});
+	loginFeedbackSubmit.addEventListener('click', () => {
+		page('/home');
+		hideModal();
 	});
 }

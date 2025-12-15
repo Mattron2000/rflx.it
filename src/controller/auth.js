@@ -17,15 +17,19 @@ const login = (req, res, next) => {
 		if (!user)
 			return res
 				.status(401)
-				.json({ message: info?.message || 'Invalid credentials' });
+				.json({ ok: false, title: info.title, messages: info.message });
 
 		req.login(user, (err) => {
 			err ?
-				res.status(401).json({ message: err?.message || 'Invalid credentials' })
+				res
+					.status(401)
+					.json({ ok: false, title: info.title, messages: err.message })
 			:	res
 					.status(200)
 					.json({
-						message: 'Login successful',
+						ok: true,
+						title: info.title,
+						messages: 'Login successful',
 						user: { name: user.name, surname: user.surname, email: user.email }
 					});
 		});
@@ -50,15 +54,20 @@ const register = async (req, res) => {
 
 		return res
 			.status(201)
-			.json({ name: user.name, surname: user.surname, email: user.email });
+			.json({
+				ok: true,
+				name: user.name,
+				surname: user.surname,
+				email: user.email
+			});
 	} catch (err) {
 		if (err instanceof ValidationError)
-			return res.status(400).json({ message: err.message });
+			return res.status(400).json({ ok: false, message: err.message });
 
 		if (err instanceof ConflictError)
-			return res.status(409).json({ message: err.message });
+			return res.status(409).json({ ok: false, message: err.message });
 
-		return res.status(500).json(err);
+		return res.status(500).json({ ok: false, error: err });
 	}
 };
 
