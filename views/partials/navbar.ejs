@@ -15,9 +15,6 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-				<li class="nav-item">
-					<a class="nav-link" href="/login">Login</a>
-				</li>
 				<li class="nav-item dropdown">
 					<a
 						class="nav-link dropdown-toggle"
@@ -47,8 +44,30 @@
 					type="search"
 					placeholder="Search"
 					aria-label="Search" />
-				<button class="btn btn-outline-success" type="submit">Search</button>
 			</form>
+			<div class="flex-shrink-0 dropdown">
+				<a
+					class="d-block link-dark text-decoration-none dropdown-toggle"
+					id="dropdownUser"
+					data-bs-toggle="dropdown"
+					aria-expanded="false">
+					<img
+						src="/assets/user_placeholder.png"
+						alt="user_profile"
+						width="32"
+						height="32"
+						class="rounded-circle" />
+				</a>
+				<ul
+					class="dropdown-menu text-small shadow"
+					aria-labelledby="dropdownUser">
+					<li><a class="dropdown-item" href="#">New project...</a></li>
+					<li><a class="dropdown-item" href="#">Settings</a></li>
+					<li><a class="dropdown-item" href="#">Profile</a></li>
+					<li><hr class="dropdown-divider" /></li>
+					<li><a class="dropdown-item" href="/login">Login</a></li>
+				</ul>
+			</div>
 		</div>
 	</div>
 </nav>

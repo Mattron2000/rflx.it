@@ -12,7 +12,7 @@ const verify = (email, password, done) => {
 
 	if (!validator.isEmail(email)) errors.push('Invalid email format');
 	if (String(password).length < 8)
-		errors.push('Password is not strong enough.');
+		errors.push('Password is not long enough.');
 
 	if (errors.length > 0)
 		return done(null, false, { title: 'Invalid credentials', message: errors });

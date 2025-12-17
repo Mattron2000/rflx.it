@@ -1,6 +1,36 @@
 <link rel="stylesheet" href="css/auth.css" />
 <script defer src="/js/register.js"></script>
 
+<div
+	class="modal fade"
+	id="registerFeedback"
+	tabindex="-1"
+	data-backdrop="static"
+	aria-labelledby="registerFeedbackLabel"
+	aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="registerFeedbackTitle"></h5>
+				<button
+					id="registerFeedbackDismiss"
+					type="button"
+					class="btn-close"
+					data-bs-dismiss="modal"
+					aria-label="Close"></button>
+			</div>
+			<div class="modal-footer">
+				<button
+					id="registerFeedbackSubmit"
+					type="button"
+					class="btn btn-primary">
+					Login
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+
 <section class="vh-100">
 	<div class="container-fluid h-custom">
 		<div class="row d-flex justify-content-center align-items-center h-100">
@@ -19,7 +49,8 @@
 							type="text"
 							id="registerName"
 							class="form-control form-control-lg"
-							placeholder="Enter a valid first name" />
+							placeholder="Enter a valid first name"
+							required />
 						<label class="form-label" for="registerName">Name</label>
 					</div>
 
@@ -28,7 +59,8 @@
 							type="text"
 							id="registerSurname"
 							class="form-control form-control-lg"
-							placeholder="Enter a valid last name" />
+							placeholder="Enter a valid last name"
+							required />
 						<label class="form-label" for="registerSurname">Surname</label>
 					</div>
 
@@ -37,7 +69,8 @@
 							type="email"
 							id="registerEmail"
 							class="form-control form-control-lg"
-							placeholder="Enter a valid email address" />
+							placeholder="Enter a valid email address"
+							required />
 						<label class="form-label" for="registerEmail">Email address</label>
 					</div>
 
@@ -46,7 +79,9 @@
 							type="password"
 							id="registerPassword"
 							class="form-control form-control-lg"
-							placeholder="Enter password" />
+							placeholder="Enter password"
+							required
+							minlength="8" />
 						<label class="form-label" for="registerPassword">Password</label>
 					</div>
 
@@ -55,7 +90,9 @@
 							type="password"
 							id="registerConfirmPassword"
 							class="form-control form-control-lg"
-							placeholder="Confirm password" />
+							placeholder="Confirm password"
+							required
+							minlength="8" />
 						<label class="form-label" for="registerPassword">Confirm Password</label>
 					</div>
 

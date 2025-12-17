@@ -1,20 +1,34 @@
-/* global document */
+/* global document bootstrap */
 'use strict';
 
-async function streamToText(stream) {
-	const chunks = [];
-	const reader = stream.getReader();
+function hideSubmitButton() {
+	document.getElementById('registerFeedbackSubmit').classList.add('d-none');
+}
 
-	for (;;) {
-		const { done, value } = await reader.read();
-		if (done) break;
-		chunks.push(value);
-	}
+function showSubmitButton() {
+	document.getElementById('registerFeedbackSubmit').classList.remove('d-none');
+}
 
-	const decoder = new TextDecoder();
-	return chunks
-		.map((chunk) => decoder.decode(chunk, { stream: true }))
-		.join('');
+function resetModal() {
+	document.getElementById('registerFeedbackTitle').innerHTML = '';
+
+	hideSubmitButton();
+}
+
+function showModal() {
+	const modalEl = document.getElementById('registerFeedback');
+	const modal = new bootstrap.Modal(modalEl);
+	modal.show();
+}
+
+function setupModal(response) {
+	resetModal();
+
+	if (response.ok) showSubmitButton();
+
+	document.getElementById('registerFeedbackTitle').innerHTML = response.message;
+
+	showModal();
 }
 
 export function init() {
@@ -22,7 +36,7 @@ export function init() {
 	const registerSurname = document.getElementById('registerSurname');
 	const registerEmail = document.getElementById('registerEmail');
 	const registerPassword = document.getElementById('registerPassword');
-	const registerFeedback = document.getElementById('registerFeedback');
+	const registerConfirmPassword = document.getElementById('registerConfirmPassword');
 
 	const registerButton = document.getElementById('registerSubmit');
 
@@ -31,6 +45,20 @@ export function init() {
 		const surname = registerSurname.value;
 		const email = registerEmail.value;
 		const password = registerPassword.value;
+		const confirmPassword = registerConfirmPassword.value;
+
+		if (!name || !surname || !email || !password || !confirmPassword) {
+			setupModal({
+				ok: false,
+				message: 'Name, surname, email and password are required!'
+			});
+			return;
+		}
+
+		if (confirmPassword !== registerPassword) {
+			setupModal({ ok: false, message: 'You put two different passwords' });
+			return;
+		}
 
 		fetch('/api/v1/auth/register', {
 			method: 'POST',
@@ -42,7 +70,7 @@ export function init() {
 				password: password
 			})
 		})
-			.then(async (response) => await streamToText(response.body))
-			.then((text) => (registerFeedback.innerHTML = text));
+			.then((response) => response.json())
+			.then((res) => setupModal(res));
 	});
 }
