@@ -7,7 +7,7 @@ import authService from '../service/auth.js';
 
 const check = (req, res) =>
 	req.isAuthenticated() ?
-		res.status(200).json({ authenticated: true, user: req.user })
+		res.status(200).json({ authenticated: true, user: req.session.user })
 	:	res.status(401).json({ authenticated: false });
 
 const login = (req, res, next) => {
@@ -20,26 +20,35 @@ const login = (req, res, next) => {
 				.json({ ok: false, title: info.title, messages: info.message });
 
 		req.login(user, (err) => {
-			err ?
+			if (err) {
 				res
 					.status(401)
-					.json({ ok: false, title: info.title, messages: err.message })
-			:	res
-					.status(200)
-					.json({
-						ok: true,
-						title: info.title,
-						messages: 'Login successful',
-						user: { name: user.name, surname: user.surname, email: user.email }
-					});
+					.json({ ok: false, title: info.title, messages: err.message });
+
+				return;
+			}
+
+			res
+				.status(200)
+				.json({ ok: true, title: info.title, messages: 'Login successful' });
+
+			req.session.user = {
+				authenticated: true,
+				name: user.name,
+				surname: user.surname,
+				email: user.email
+			};
 		});
 	})(req, res, next);
 };
 
-const logout = (req, res, next) =>
-	!req.isAuthenticated() ?
-		res.sendStatus(304)
-	:	req.logout((err) => (err ? next(err) : res.sendStatus(200)));
+const logout = (req, res) =>
+	req.isAuthenticated() ?
+		req.session.destroy(() => {
+			res.clearCookie('sid');
+			res.sendStatus(204);
+		})
+	:	res.sendStatus(304);
 
 const register = async (req, res) => {
 	const { name, surname, email, password } = req.body;

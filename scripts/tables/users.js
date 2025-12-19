@@ -6,9 +6,9 @@ export default function seedUsers() {
 
 	// prettier-ignore
 	const users = [
-		{ name: 'Mario',	surname: 'Rossi',		email: 'mario@example.com',	password: '12341234' },
-		{ name: 'Luigi',	surname: 'Verdi',		email: 'luigi@example.com',	password: 'qwerqwer' },
-		{ name: 'Marco',	surname: 'Bianchi',	email: 'marco@example.com',	password: 'asdfasdf' }
+		{ name: 'Mario',	surname: 'Rossi',		email: 'mario@gmail.com',	password: '12341234' },
+		{ name: 'Luigi',	surname: 'Verdi',		email: 'luigi@gmail.com',	password: 'qwerqwer' },
+		{ name: 'Marco',	surname: 'Bianchi',	email: 'marco@gmail.com',	password: 'asdfasdf' }
   ];
 
 	const promises = users.map(async (u) => {

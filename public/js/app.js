@@ -1,30 +1,24 @@
 /* global document page */
 'use strict';
 
-const main = document.getElementsByTagName('main')[0];
+const app = document.getElementById('app');
 
-const fetchTemplate = (name) =>
-	fetch('/pages/' + name).then((res) => res.text());
-
-const renderTemplate = (target, name, data = {}) =>
-	fetchTemplate(name, data).then((template) => (target.innerHTML = template));
+const loadPage = (name) =>
+	fetch(`/pages/${name}`)
+		.then((res) => res.text())
+		.then((template) => (app.innerHTML = template))
+		.then(() => import(`/js/${name}.js`))
+		.then((module) => module.default?.());
 
 page('/', () => page.redirect('/home'));
-page('/login', () =>
-	renderTemplate(main, 'login')
-		.then(() => import('/js/login.js'))
-		.then((module) => module.init())
-);
-page('/register', () =>
-	renderTemplate(main, 'register')
-		.then(() => import('/js/register.js'))
-		.then((module) => module.init())
-);
-page('/:page_name', (ctx) => renderTemplate(main, ctx.params.page_name));
+page('/:page_name', (ctx) => loadPage(ctx.params.page_name));
+
 page('/scripts/logout', () =>
 	fetch('/api/v1/auth/logout', { method: 'DELETE' })
-		.then(() => page.redirect('/'))
+		.then((res) => {
+			if (res.ok) page.redirect('/home');
+		})
 );
-page('*', () => renderTemplate(main, 'notfound'));
+page('*', () => loadPage('notfound'));
 
 page();

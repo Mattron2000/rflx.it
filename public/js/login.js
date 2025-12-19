@@ -1,30 +1,30 @@
 /* global document bootstrap page */
 'use strict';
 
-function hideSubmitButton() {
-	document.getElementById('loginFeedbackSubmit').classList.add('d-none');
-}
+export default function () {
+	const loginEmail = document.getElementById('loginEmail');
+	const loginPassword = document.getElementById('loginPassword');
 
-function showSubmitButton() {
-	document.getElementById('loginFeedbackSubmit').classList.remove('d-none');
-}
+	const loginButton = document.getElementById('loginSubmit');
+	const loginFeedbackSubmit = document.getElementById('loginFeedbackSubmit');
 
-function resetModal() {
-	document.getElementById('loginFeedbackTitle').innerHTML = '';
-	document.getElementById('loginFeedbackLabel').innerHTML = '';
+	loginButton.addEventListener('click', () => {
+		const email = loginEmail.value;
+		const password = loginPassword.value;
 
-	hideSubmitButton();
-}
+		fetch('/api/v1/auth/login', {
+			method: 'POST',
+			headers: new Headers({ 'Content-Type': 'application/json' }),
+			body: JSON.stringify({ email: email, password: password })
+		})
+			.then((response) => response.json())
+			.then((res) => setupModal(res));
+	});
 
-function showModal() {
-	const modalEl = document.getElementById('loginFeedback');
-	const modal = new bootstrap.Modal(modalEl);
-
-	modal.show();
-}
-
-function hideModal() {
-	bootstrap.Modal.getInstance(document.getElementById('loginFeedback')).hide();
+	loginFeedbackSubmit.addEventListener('click', () => {
+		hideModal();
+		page('/home');
+	});
 }
 
 function setupModal(response) {
@@ -60,29 +60,28 @@ function setupModal(response) {
 	showModal();
 }
 
-export function init() {
-	const loginEmail = document.getElementById('loginEmail');
-	const loginPassword = document.getElementById('loginPassword');
+function resetModal() {
+	document.getElementById('loginFeedbackTitle').innerHTML = '';
+	document.getElementById('loginFeedbackLabel').innerHTML = '';
 
-	const loginButton = document.getElementById('loginSubmit');
+	hideSubmitButton();
+}
 
-	loginButton.addEventListener('click', () => {
-		const email = loginEmail.value;
-		const password = loginPassword.value;
+function hideSubmitButton() {
+	document.getElementById('loginFeedbackSubmit').classList.add('d-none');
+}
 
-		fetch('/api/v1/auth/login', {
-			method: 'POST',
-			headers: new Headers({ 'Content-Type': 'application/json' }),
-			body: JSON.stringify({ email: email, password: password })
-		})
-			.then((response) => response.json())
-			.then((res) => setupModal(res));
-	});
+function showSubmitButton() {
+	document.getElementById('loginFeedbackSubmit').classList.remove('d-none');
+}
 
-	const loginFeedbackSubmit = document.getElementById('loginFeedbackSubmit');
+function showModal() {
+	const modalEl = document.getElementById('loginFeedback');
+	const modal = new bootstrap.Modal(modalEl);
 
-	loginFeedbackSubmit.addEventListener('click', () => {
-		page('/home');
-		hideModal();
-	});
+	modal.show();
+}
+
+function hideModal() {
+	bootstrap.Modal.getInstance(document.getElementById('loginFeedback')).hide();
 }
