@@ -12,40 +12,71 @@
 			</div>
 			<div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
 				<form>
+					<div data-mdb-input-init class="form-outline mb-4 mt-2">
+						<input
+							type="text"
+							id="registerName"
+							class="form-control form-control-lg"
+							placeholder="Enter a valid name"
+							required />
+						<label class="form-label" for="registerName">Name</label>
+					</div>
+
+					<div data-mdb-input-init class="form-outline mb-4">
+						<input
+							type="text"
+							id="registerSurname"
+							class="form-control form-control-lg"
+							placeholder="Enter a valid surname"
+							required />
+						<label class="form-label" for="registerSurname">Surname</label>
+					</div>
+
 					<div data-mdb-input-init class="form-outline mb-4">
 						<input
 							type="email"
-							id="loginEmail"
+							id="registerEmail"
 							class="form-control form-control-lg"
 							placeholder="Enter a valid email address"
 							required />
-						<label class="form-label" for="loginEmail">Email address</label>
+						<label class="form-label" for="registerEmail">Email address</label>
 					</div>
 
 					<div data-mdb-input-init class="form-outline mb-3">
 						<input
 							type="password"
-							id="loginPassword"
+							id="registerPassword"
 							class="form-control form-control-lg"
 							placeholder="Enter password"
 							required
 							minlength="8" />
-						<label class="form-label" for="loginPassword">Password</label>
+						<label class="form-label" for="registerPassword">Password</label>
+					</div>
+
+					<div data-mdb-input-init class="form-outline mb-3">
+						<input
+							type="password"
+							id="confirmPassword"
+							class="form-control form-control-lg"
+							placeholder="Enter password"
+							required
+							minlength="8" />
+						<label class="form-label" for="confirmPassword">Confirm password</label>
 					</div>
 
 					<div class="text-center text-lg-start mt-4 pt-2">
 						<button
-							id="loginSubmit"
+							id="registerSubmit"
 							type="button"
 							data-mdb-button-init
 							data-mdb-ripple-init
 							class="btn btn-primary btn-lg"
 							style="padding-left: 2.5rem; padding-right: 2.5rem">
-							Login
+							Register
 						</button>
 						<p class="small fw-bold mt-2 pt-1 mb-0">
-							Don't have an account?
-							<a href="/register" class="link-info">Register</a>
+							Do you have an account?
+							<a href="/login" class="link-info">Login</a>
 						</p>
 					</div>
 				</form>
@@ -56,25 +87,24 @@
 
 <div
 	class="modal fade"
-	id="loginFeedback"
+	id="registerFeedback"
 	tabindex="-1"
-	aria-labelledby="loginFeedbackLabel"
+	aria-labelledby="registerFeedbackLabel"
 	aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="loginFeedbackTitle"></h5>
+				<h5 class="modal-title" id="registerFeedbackTitle"></h5>
 				<button
-					id="loginFeedbackDismiss"
+					id="registerFeedbackDismiss"
 					type="button"
 					class="btn-close"
 					data-bs-dismiss="modal"
 					aria-label="Close"></button>
 			</div>
-			<div class="modal-body" id="loginFeedbackLabel"></div>
 			<div class="modal-footer">
-				<button id="loginFeedbackSubmit" type="button" class="btn btn-primary">
-					Enter
+				<button id="registerFeedbackSubmit" type="button" class="btn btn-primary">
+					Login
 				</button>
 			</div>
 		</div>

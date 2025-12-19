@@ -1,0 +1,83 @@
+/* global document bootstrap page */
+'use strict';
+
+export default function () {
+	const registerName = document.getElementById('registerName');
+	const registerSurname = document.getElementById('registerSurname');
+	const registerEmail = document.getElementById('registerEmail');
+	const registerPassword = document.getElementById('registerPassword');
+	const confirmPassword = document.getElementById('confirmPassword');
+
+	const registerButton = document.getElementById('registerSubmit');
+	const registerFeedbackSubmit = document.getElementById(
+		'registerFeedbackSubmit'
+	);
+
+	registerButton.addEventListener('click', () => {
+		const name = registerName.value;
+		const surname = registerSurname.value;
+		const email = registerEmail.value;
+		const password = registerPassword.value;
+
+		if (password !== confirmPassword.value) {
+			setupModal({ ok: false, message: 'Passwords do not match' });
+			return;
+		}
+
+		fetch('/api/v1/auth/register', {
+			method: 'POST',
+			headers: new Headers({ 'Content-Type': 'application/json' }),
+			body: JSON.stringify({
+				name: name,
+				surname: surname,
+				email: email,
+				password: password
+			})
+		})
+			.then((response) => response.json())
+			.then((res) => setupModal(res));
+	});
+
+	registerFeedbackSubmit.addEventListener('click', () => {
+		hideModal();
+		page('/login');
+	});
+}
+
+function setupModal(response) {
+	resetModal();
+
+	// it's all ok (register success) make submit button visible
+	if (response.ok) showSubmitButton();
+
+	document.getElementById('registerFeedbackTitle').innerHTML = response.message;
+
+	showModal();
+}
+
+function resetModal() {
+	document.getElementById('registerFeedbackTitle').innerHTML = '';
+
+	hideSubmitButton();
+}
+
+function hideSubmitButton() {
+	document.getElementById('registerFeedbackSubmit').classList.add('d-none');
+}
+
+function showSubmitButton() {
+	document.getElementById('registerFeedbackSubmit').classList.remove('d-none');
+}
+
+function showModal() {
+	const modalEl = document.getElementById('registerFeedback');
+	const modal = new bootstrap.Modal(modalEl);
+
+	modal.show();
+}
+
+function hideModal() {
+	bootstrap.Modal.getInstance(
+		document.getElementById('registerFeedback')
+	).hide();
+}
