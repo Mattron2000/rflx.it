@@ -1,8 +1,9 @@
 import fs from 'node:fs';
 import env from '../src/config/env.js';
 import { log } from '../src/logger.js';
-import seedUsers from './tables/users.js';
 import queryBuilder from '../src/db/queryBuilder.js';
+import seedRoles from './tables/roles.js';
+import seedUsers from './tables/users.js';
 
 // check DB if exist
 if (!fs.existsSync(env.DB_PATH)) {
@@ -11,6 +12,7 @@ if (!fs.existsSync(env.DB_PATH)) {
 }
 
 // Seeding
+await Promise.all([seedRoles()]);
 await Promise.all([seedUsers()]);
 
 // Close DB

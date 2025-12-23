@@ -15,10 +15,12 @@ export default function () {
 				return;
 			}
 
-			const { name, surname, email } = session.user;
+			const { name, surname, email, role } = session.user;
 			document.getElementById('dati-utente').innerHTML = `
 			<p>Nome: ${name}</p>
 			<p>Cognome: ${surname}</p>
-			<p>Email: ${email}</p>`;
+			<p>Email: ${email}</p>
+			<p>Role: ${role}</p>
+			`;
 		});
 }

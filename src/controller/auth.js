@@ -36,7 +36,8 @@ const login = (req, res, next) => {
 				authenticated: true,
 				name: user.name,
 				surname: user.surname,
-				email: user.email
+				email: user.email,
+				role: user.user_role
 			};
 		});
 	})(req, res, next);

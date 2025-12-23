@@ -21,7 +21,8 @@ function addNewUser(user) {
 		user.name,
 		user.surname,
 		user.email,
-		user.password
+		user.password,
+		user.user_role
 	);
 }
 
