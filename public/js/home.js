@@ -15,10 +15,9 @@ export default function () {
 				return;
 			}
 
-			const { name, surname, email, role } = session.user;
+			const { nickname, email, role } = session.user;
 			document.getElementById('dati-utente').innerHTML = `
-			<p>Nome: ${name}</p>
-			<p>Cognome: ${surname}</p>
+			<p>Nickname: ${nickname}</p>
 			<p>Email: ${email}</p>
 			<p>Role: ${role}</p>
 			`;

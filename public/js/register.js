@@ -2,8 +2,7 @@
 'use strict';
 
 export default function () {
-	const registerName = document.getElementById('registerName');
-	const registerSurname = document.getElementById('registerSurname');
+	const registerNickname = document.getElementById('registerNickname');
 	const registerEmail = document.getElementById('registerEmail');
 	const registerPassword = document.getElementById('registerPassword');
 	const confirmPassword = document.getElementById('confirmPassword');
@@ -14,8 +13,7 @@ export default function () {
 	);
 
 	registerButton.addEventListener('click', () => {
-		const name = registerName.value;
-		const surname = registerSurname.value;
+		const nickname = registerNickname.value;
 		const email = registerEmail.value;
 		const password = registerPassword.value;
 
@@ -27,12 +25,7 @@ export default function () {
 		fetch('/api/v1/auth/register', {
 			method: 'POST',
 			headers: new Headers({ 'Content-Type': 'application/json' }),
-			body: JSON.stringify({
-				name: name,
-				surname: surname,
-				email: email,
-				password: password
-			})
+			body: JSON.stringify({ nickname: nickname, email: email, password: password })
 		})
 			.then((response) => response.json())
 			.then((res) => setupModal(res));

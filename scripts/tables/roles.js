@@ -13,9 +13,10 @@ export default function seedRoles() {
 	const promises = roles.map(async (r) => {
 		await roleService
 			.addNewRole(r)
-			.then(() => log(`role seed: ${JSON.stringify(r)}`))
-			.catch(() => log(`role ${JSON.stringify(r)} already inserted`));
+			.then(() => log(`role seed: ${JSON.stringify(r)}`));
 	});
 
-	return Promise.all(promises).then(() => log('Roles seeded'));
+	return Promise.all(promises)
+		.then(() => log('Roles seeded'))
+		.catch((err) => log(err));
 }

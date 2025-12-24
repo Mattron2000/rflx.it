@@ -4,8 +4,7 @@ CREATE TABLE roles (
 
 CREATE TABLE users (
 	id				INTEGER PRIMARY KEY AUTOINCREMENT,
-	name			TEXT NOT NULL,
-	surname		TEXT NOT NULL,
+	nickname	TEXT NOT NULL UNIQUE,
 	email			TEXT NOT NULL UNIQUE,
 	password	TEXT NOT NULL,
 	user_role	TEXT DEFAULT 'base',

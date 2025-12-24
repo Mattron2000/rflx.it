@@ -34,8 +34,7 @@ const login = (req, res, next) => {
 
 			req.session.user = {
 				authenticated: true,
-				name: user.name,
-				surname: user.surname,
+				nickname: user.nickname,
 				email: user.email,
 				role: user.user_role
 			};
@@ -52,12 +51,11 @@ const logout = (req, res) =>
 	:	res.sendStatus(304);
 
 const register = async (req, res) => {
-	const { name, surname, email, password } = req.body;
+	const { nickname, email, password } = req.body;
 
 	try {
 		const user = await authService.registerNewUser({
-			name,
-			surname,
+			nickname,
 			email,
 			password
 		});
@@ -67,8 +65,7 @@ const register = async (req, res) => {
 			.json({
 				ok: true,
 				message: 'Registration successful',
-				name: user.name,
-				surname: user.surname,
+				nickname: user.nickname,
 				email: user.email
 			});
 	} catch (err) {

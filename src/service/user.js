@@ -12,14 +12,13 @@ function getUsers() {
 /**
  * Adds a new user to the system.
  *
- * @param {{ name: string, surname: string, email: string, password: string }} user
+ * @param {{ nickname: string, email: string, password: string }} user
  *        User data to insert.
  * @returns {Promise<any>} Promise resolving to the insert result.
  */
 function addNewUser(user) {
 	return userRepository.insertNewUser(
-		user.name,
-		user.surname,
+		user.nickname,
 		user.email,
 		user.password,
 		user.user_role
