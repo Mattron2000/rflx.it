@@ -1,4 +1,4 @@
-/* global document */
+/* global document bootstrap */
 'use strict';
 
 import { getSession } from './session.js';
@@ -15,7 +15,19 @@ export default async function () {
 }
 
 function handleModal(res) {
-	console.log(res);
+	if (res.message)
+		document.getElementById('uploadFeedbackLabel').innerHTML = res.message;
+
+	if (res.photo_name)
+		document.getElementById('uploadFeedbackLabel').innerHTML =
+			`<p>Immagine caricata con successo</p>
+			<p>Nome immagine: ${res.photo_name}</p>
+			`;
+
+	const modalEl = document.getElementById('uploadFeedback');
+	const modal = new bootstrap.Modal(modalEl);
+
+	modal.show();
 }
 
 function setupUploader() {
