@@ -8,5 +8,12 @@
 
 <hr />
 
+<form action="/api/v1/photos" method="post" enctype="multipart/form-data" id="photo-uploader">
+	<input type="file" name="photo" accept=".jpg,.jpeg,.png" />
+	<button type="submit">Upload</button>
+</form>
+
+<hr />
+
 <section class="feed" id="photo-feed">
 </section>

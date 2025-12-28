@@ -1,12 +1,14 @@
 /* global document */
 'use strict';
 
-import { getSession } from './session.js';
+import { loadSession, getSession } from './session.js';
 
 const loginButton = document.getElementById('loginButton');
 const logoutButton = document.getElementById('logoutButton');
 
-export const setupNavbar = () => {
+const setupNavbar = async () => {
+	await loadSession();
+
 	const session = getSession();
 
 	if (session.authenticated) {
@@ -17,3 +19,6 @@ export const setupNavbar = () => {
 		logoutButton.classList.add('d-none');
 	}
 };
+
+export default setupNavbar;
+

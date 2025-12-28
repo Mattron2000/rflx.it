@@ -1,13 +1,15 @@
 import { log } from '../../src/logger.js';
 import roleService from '../../src/service/role.js';
 
+const Role = { BASE: 'base', PHOTOGRAPHER: 'photographer' };
+
 export default function seedRoles() {
 	log('Seeding roles...');
 
 	// prettier-ignore
 	const roles = [
-		{ name: 'base' },
-		{ name: 'photographer' }
+		{ name: Role.BASE },
+		{ name: Role.PHOTOGRAPHER }
   ];
 
 	const promises = roles.map(async (r) => {
@@ -20,3 +22,5 @@ export default function seedRoles() {
 		.then(() => log('Roles seeded'))
 		.catch((err) => log(err));
 }
+
+export { Role };

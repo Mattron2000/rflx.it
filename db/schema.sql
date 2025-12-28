@@ -10,3 +10,9 @@ CREATE TABLE users (
 	user_role	TEXT DEFAULT 'base',
 	FOREIGN KEY (user_role) REFERENCES roles (name)
 );
+
+CREATE TABLE photos (
+	photo_name	TEXT NOT NULL PRIMARY KEY,
+	user_id			INTEGER NOT NULL,
+	FOREIGN KEY (user_id) REFERENCES users (id)
+);
