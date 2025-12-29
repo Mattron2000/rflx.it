@@ -34,6 +34,16 @@ function handleModal(res) {
 }
 
 function setupUploader() {
+	const uploadBtnStart = document.getElementById('upload-post-btn-start');
+
+	const { authenticated, user } = getSession();
+	if (!authenticated || user.role !== 'photographer') {
+		uploadBtnStart.classList.add('d-none');
+		return;
+	}
+
+	uploadBtnStart.classList.remove('d-none');
+
 	const uploadForm = document.getElementById('photo-uploader');
 
 	uploadForm.addEventListener('submit', (e) => {
