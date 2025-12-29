@@ -8,7 +8,7 @@ const DB_SCHEMA_PATH = process.env.DB_SCHEMA_PATH;
 const BCRYPT_SALT = process.env.BCRYPT_SALT;
 const SESSION_SECRET = process.env.SESSION_SECRET;
 const SESSION_DB_PATH = process.env.SESSION_DB_PATH;
-const UPLOAD_DIR = process.env.UPLOAD_DIR;
+const POST_IMAGE_DIR = process.env.POST_IMAGE_DIR;
 
 export const ENV_TYPE = Object.freeze({
 	DEVELOPMENT: 'development',
@@ -56,14 +56,14 @@ filepath = path.resolve(SESSION_DB_PATH);
 if (!fs.existsSync(filepath))
 	throw new Error(`SESSION_DB_PATH not exists: ${SESSION_DB_PATH}`);
 
-// UPLOAD_DIR
-if (!UPLOAD_DIR)
-	throw new Error(`UPLOAD_DIR not set: ${UPLOAD_DIR}`);
+// POST_IMAGE_DIR
+if (!POST_IMAGE_DIR)
+	throw new Error(`POST_IMAGE_DIR not set: ${POST_IMAGE_DIR}`);
 
-filepath = path.resolve(UPLOAD_DIR);
+filepath = path.resolve(POST_IMAGE_DIR);
 
 if (!fs.existsSync(filepath))
-	throw new Error(`UPLOAD_DIR not exists: ${UPLOAD_DIR}`);
+	throw new Error(`POST_IMAGE_DIR not exists: ${POST_IMAGE_DIR}`);
 
 export default Object.freeze({
 	SERVER_PORT: SERVER_PORT,
@@ -73,5 +73,5 @@ export default Object.freeze({
 	BCRYPT_SALT: BCRYPT_SALT,
 	SESSION_SECRET: SESSION_SECRET,
 	SESSION_DB_PATH: SESSION_DB_PATH,
-	UPLOAD_DIR: UPLOAD_DIR
+	POST_IMAGE_DIR: POST_IMAGE_DIR
 });

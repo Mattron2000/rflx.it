@@ -19,6 +19,8 @@ router.post(
 	photoController.uploadPhoto
 );
 
+router.get('/', photoController.getAllPhotos);
+
 export default router;
 
 function isAuthenticated(req, res, next) {

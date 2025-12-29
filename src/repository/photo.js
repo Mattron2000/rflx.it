@@ -8,4 +8,11 @@ function insertPhoto(photoData) {
 		.then(() => photoData);
 }
 
-export default { insertPhoto };
+const limit = 20;
+function getAllPhotos(page = 1) {
+	const offset = (page - 1) * limit;
+
+	return queryBuilder(TABLE_NAME).select('*').limit(limit).offset(offset);
+}
+
+export default { insertPhoto, getAllPhotos };

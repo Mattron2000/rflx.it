@@ -1,4 +1,4 @@
-/* global document bootstrap */
+/* global document bootstrap IntersectionObserver */
 'use strict';
 
 import { getSession } from './session.js';
@@ -11,7 +11,10 @@ export default async function () {
 
 	setupUploader();
 
-	setupPhotoCards();
+	const feed = document.getElementById('photo-feed');
+	const sentinel = document.getElementById('scroll-sentinel');
+
+	new InfiniteScroll(feed, sentinel, fetchPosts);
 }
 
 function handleModal(res) {
@@ -44,30 +47,69 @@ function setupUploader() {
 	});
 }
 
-function setupPhotoCards() {
-	const buttons = document.querySelectorAll('.photo-card-btn');
+function setupSessionData() {
+	const session = getSession();
+	if (!session.authenticated) {
+		document.getElementById('dati-utente').innerHTML =
+			'Dati utente non disponibili';
+		return;
+	}
 
-	buttons.forEach((button) => {
-		button.addEventListener('click', () => {
-			const img = button.querySelector('img');
-			const imageSrc = img.getAttribute('src');
-			console.log(`Link dell'immagine: ${imageSrc}`);
-		});
-	});
+	const { nickname, email, role } = session.user;
+	document.getElementById('dati-utente').innerHTML = `
+		<p>Nickname: ${nickname}</p>
+		<p>Email: ${email}</p>
+		<p>Role: ${role}</p>
+		`;
 }
 
-function setupSessionData() {
-			const session = getSession();
-			if (!session.authenticated) {
-				document.getElementById('dati-utente').innerHTML =
-					'Dati utente non disponibili';
-				return;
-			}
+class InfiniteScroll {
+	constructor(feedEl, sentinelEl, loadFn) {
+		this.feedEl = feedEl;
+		this.loadFn = loadFn;
+		this.page = 1;
 
-			const { nickname, email, role } = session.user;
-			document.getElementById('dati-utente').innerHTML = `
-			<p>Nickname: ${nickname}</p>
-			<p>Email: ${email}</p>
-			<p>Role: ${role}</p>
-			`;
-		}
+		this.observer = new IntersectionObserver(
+			(entries) => {
+				if (entries[0].isIntersecting) this.loadMore();
+			},
+			{ rootMargin: '200px' }
+		);
+
+		this.observer.observe(sentinelEl);
+	}
+
+	async loadMore() {
+		const posts = await this.loadFn(this.page++);
+
+		posts.forEach((post) => this.feedEl.appendChild(post));
+	}
+}
+
+async function fetchPosts(page) {
+	const res = await fetch(`/api/v1/photos?page=${page}`);
+
+	if (!res.ok) return [];
+	const data = await res.json();
+
+	return data.map(createPhotoCard);
+}
+
+function createPhotoCard(post) {
+	const { photo_name } = post;
+	const card = document.createElement('article');
+	card.classList.add('photo-card', 'card');
+
+	card.innerHTML = `
+		<img
+			src="/images/posts/${photo_name}"
+			alt="${photo_name}"
+			class="card-img-top" />
+		`;
+
+	card.addEventListener('click', () => {
+		console.log(`Link dell'immagine: /api/v1/photos/${photo_name}`);
+	});
+
+	return card;
+}

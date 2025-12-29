@@ -7,9 +7,13 @@ const addNewPhoto = (file, userId) => {
 
 	const photoData = { photo_name: file.filename, user_id: userId };
 
-	return photoRepository
-		.insertPhoto(photoData)
-		.then((savedPhoto) => savedPhoto);
+	return photoRepository.insertPhoto(photoData);
 };
 
-export default { addNewPhoto };
+const getAllPhotos = (page = 1) => {
+	if (isNaN(page) || page < 1) throw new Error('Invalid page number');
+
+	return photoRepository.getAllPhotos(page);
+};
+
+export default { addNewPhoto, getAllPhotos };

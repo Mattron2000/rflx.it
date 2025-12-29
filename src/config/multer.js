@@ -4,7 +4,7 @@ import { extname } from 'path';
 import env from './env.js';
 
 const storage = multer.diskStorage({
-	destination: (req, file, done) => done(null, env.UPLOAD_DIR),
+	destination: (req, file, done) => done(null, env.POST_IMAGE_DIR),
 	filename: (req, file, done) => done(null, generateFilename(file.originalname))
 });
 

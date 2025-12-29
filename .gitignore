@@ -10,3 +10,4 @@ db/db.sqlite
 db/sessions.sqlite
 
 public/assets/*.min.*
+public/images/posts/*

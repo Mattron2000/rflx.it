@@ -11,4 +11,13 @@ const uploadPhoto = (req, res, next) => {
 		.catch((err) => next(err));
 };
 
-export default { uploadPhoto };
+const getAllPhotos = (req, res) => {
+	const page = req.query.page || 1;
+
+	photoService
+		.getAllPhotos(page)
+		.then((photos) => res.status(200).json(photos))
+		.catch((err) => res.status(400).json(err));
+};
+
+export default { uploadPhoto, getAllPhotos };
