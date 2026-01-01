@@ -51,16 +51,51 @@
 	aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
+			<div class="modal-header">
+				<button
+					id="uploadFormModalDismiss"
+					type="button"
+					class="btn-close"
+					data-bs-dismiss="modal"
+					aria-label="Close"></button>
+			</div>
 			<form
-				class="p-4"
-				action="/api/v1/photos"
+				class="photo-uploader"
 				method="post"
 				enctype="multipart/form-data"
 				id="photo-uploader">
-				<input type="file" name="photo" accept=".jpg,.jpeg,.png" />
-				<button type="submit">Upload</button>
+				<div class="container">
+					<!-- Row 1: Image -->
+					<div class="photo-uploader__preview row m-2">
+						<img
+							id="photo-preview"
+							class="photo-uploader__img hidden"
+							alt="Photo preview" />
+
+						<span class="photo-uploader__placeholder"> Select image </span>
+
+						<input
+							type="file"
+							name="photo"
+							id="photo-input"
+							accept="image/*"
+							required />
+					</div>
+
+					<!-- Row 2: Description -->
+					<div class="photo-uploader__description row m-2">
+						<textarea
+							name="description"
+							rows="4"
+							placeholder="Write a description..."></textarea>
+					</div>
+
+					<!-- Row 3: Publish -->
+					<div class="row m-2">
+						<button type="submit" class="btn btn-primary">Publish</button>
+					</div>
+				</div>
 			</form>
-			</div>
 		</div>
 	</div>
 </div>

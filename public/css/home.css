@@ -48,3 +48,55 @@
 	border-radius: 20px;
 	border: 1px solid lightgrey;
 }
+
+/* Image preview */
+.photo-uploader__preview {
+	position: relative;
+	border: 1px dashed #ccc;
+	border-radius: 12px;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	padding: 0.5rem;
+}
+
+.photo-uploader__preview input[type='file'] {
+	position: absolute;
+	inset: 0;
+	opacity: 0;
+	cursor: pointer;
+}
+
+.photo-uploader__img {
+	max-width: 100%;
+	max-height: 60vh;
+	object-fit: contain;
+	display: block;
+}
+
+.photo-uploader__placeholder {
+	color: #888;
+	font-size: 0.9rem;
+	text-align: center;
+}
+
+/* Description */
+.photo-uploader__description {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.photo-uploader__description textarea,
+.photo-uploader__description input {
+	width: 100%;
+	padding: 0.5rem;
+	border-radius: 6px;
+	border: 1px solid #ccc;
+}
+
+.hidden {
+	display: none;
+}

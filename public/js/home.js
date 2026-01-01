@@ -15,6 +15,20 @@ export default async function () {
 	const sentinel = document.getElementById('scroll-sentinel');
 
 	new InfiniteScroll(feed, sentinel, fetchPosts);
+
+	// Image preview of the uploaded image
+	const input = document.getElementById('photo-input');
+	const preview = document.getElementById('photo-preview');
+	const placeholder = document.querySelector('.photo-uploader__placeholder');
+
+	input.addEventListener('change', () => {
+		const file = input.files[0];
+		if (!file) return;
+
+		preview.src = URL.createObjectURL(file);
+		preview.classList.remove('hidden');
+		placeholder.classList.add('hidden');
+	});
 }
 
 function handleModal(res) {
@@ -51,7 +65,7 @@ function setupUploader() {
 
 		const formData = new FormData(uploadForm);
 
-		fetch('/api/v1/photos', { method: 'POST', body: formData })
+		fetch('/api/v1/posts', { method: 'POST', body: formData })
 			.then((res) => res.json())
 			.then((res) => handleModal(res));
 	});
