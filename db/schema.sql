@@ -3,8 +3,7 @@ CREATE TABLE roles (
 );
 
 CREATE TABLE users (
-	id				INTEGER PRIMARY KEY AUTOINCREMENT,
-	nickname	TEXT NOT NULL UNIQUE,
+	nickname	TEXT NOT NULL PRIMARY KEY,
 	email			TEXT NOT NULL UNIQUE,
 	password	TEXT NOT NULL,
 	user_role	TEXT DEFAULT 'base',
@@ -12,7 +11,16 @@ CREATE TABLE users (
 );
 
 CREATE TABLE photos (
-	photo_name	TEXT NOT NULL PRIMARY KEY,
-	user_id			INTEGER NOT NULL,
-	FOREIGN KEY (user_id) REFERENCES users (id)
+	photo_name		TEXT NOT NULL PRIMARY KEY,
+	user_nickname	INTEGER NOT NULL,
+	FOREIGN KEY (user_nickname) REFERENCES users (nickname)
 );
+
+CREATE TABLE posts (
+	id						INTEGER PRIMARY KEY AUTOINCREMENT,
+	user_nickname	INTEGER NOT NULL,
+	photo_name		TEXT NOT NULL,
+	description		TEXT NOT NULL,
+	FOREIGN KEY (user_nickname) REFERENCES users (nickname),
+	FOREIGN KEY (photo_name) REFERENCES photos (photo_name)
+)

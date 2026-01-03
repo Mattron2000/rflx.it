@@ -36,7 +36,7 @@ const verify = (email, password, done) => {
 passport.use(new LocalStrategy(customFieldNames, verify));
 
 passport.serializeUser((user, done) => {
-	process.nextTick(() => done(null, { id: user.id, email: user.email }));
+	process.nextTick(() => done(null, { nickname: user.nickname, email: user.email }));
 });
 
 passport.deserializeUser((user, done) => {

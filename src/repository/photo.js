@@ -4,7 +4,7 @@ const TABLE_NAME = 'photos';
 
 function insertPhoto(photoData) {
 	return queryBuilder(TABLE_NAME)
-		.insert({ photo_name: photoData.photo_name, user_id: photoData.user_id })
+		.insert({ photo_name: photoData.photo_name, user_nickname: photoData.user_nickname })
 		.then(() => photoData);
 }
 

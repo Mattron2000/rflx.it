@@ -67,7 +67,10 @@ function setupUploader() {
 
 		fetch('/api/v1/posts', { method: 'POST', body: formData })
 			.then((res) => res.json())
-			.then((res) => handleModal(res));
+			.then((res) => {
+				bootstrap.Modal.getInstance(document.getElementById('uploadFormModal')).hide();
+				handleModal(res);
+			});
 	});
 }
 
