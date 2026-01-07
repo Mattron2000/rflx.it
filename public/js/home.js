@@ -29,6 +29,14 @@ export default async function () {
 		preview.classList.remove('hidden');
 		placeholder.classList.add('hidden');
 	});
+
+	// Close the modal
+	document.getElementById('PostModalDismiss').addEventListener('click', () => {
+		const modalEl = document.getElementById('PostModal');
+		const modal = bootstrap.Modal.getInstance(modalEl);
+
+		modal.hide();
+	});
 }
 
 function handleModal(res) {
@@ -68,7 +76,9 @@ function setupUploader() {
 		fetch('/api/v1/posts', { method: 'POST', body: formData })
 			.then((res) => res.json())
 			.then((res) => {
-				bootstrap.Modal.getInstance(document.getElementById('uploadFormModal')).hide();
+				bootstrap.Modal.getInstance(
+					document.getElementById('uploadFormModal')
+				).hide();
 				handleModal(res);
 			});
 	});
@@ -135,7 +145,17 @@ function createPhotoCard(post) {
 		`;
 
 	card.addEventListener('click', () => {
-		console.log(`Link dell'immagine: /api/v1/photos/${photo_name}`);
+		// add image in modal body
+		const modalBody = document.getElementById('PostModalImage');
+		modalBody.innerHTML = `
+			<img
+				src="/images/posts/${photo_name}"
+				alt="${photo_name}"
+				class="img-fluid" />`;
+
+		// show modal
+		const modal = new bootstrap.Modal(document.getElementById('PostModal'));
+		modal.show();
 	});
 
 	return card;
