@@ -156,6 +156,15 @@ function createPhotoCard(post) {
 		// show modal
 		const modal = new bootstrap.Modal(document.getElementById('PostModal'));
 		modal.show();
+
+		fetch(`/api/v1/posts/${photo_name}`)
+			.then((res) => (!res.ok ? 'No description here' : res.json()))
+			.then((res) => res.description)
+			.then(
+				(description) =>
+					(document.getElementById('PostModalDescription').innerHTML =
+						description)
+			);
 	});
 
 	return card;

@@ -51,7 +51,19 @@
 							placeholder="Enter password"
 							required
 							minlength="8" />
-						<label class="form-label" for="confirmPassword">Confirm password</label>
+						<label class="form-label" for="confirmPassword"
+							>Confirm password</label>
+					</div>
+
+					<div class="form-outline input-group mb-4 mt-2">
+						<div class="input-group-prepend">
+							<label class="input-group-text" for="registerRole">Role</label>
+						</div>
+						<select class="custom-select" id="registerRole">
+							<option selected>Choose...</option>
+							<option value="base">Base</option>
+							<option value="photographer">Photographer</option>
+						</select>
 					</div>
 
 					<div class="text-center text-lg-start mt-4 pt-2">
@@ -93,7 +105,10 @@
 					aria-label="Close"></button>
 			</div>
 			<div class="modal-footer">
-				<button id="registerFeedbackSubmit" type="button" class="btn btn-primary">
+				<button
+					id="registerFeedbackSubmit"
+					type="button"
+					class="btn btn-primary">
 					Login
 				</button>
 			</div>

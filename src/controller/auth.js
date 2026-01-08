@@ -51,13 +51,14 @@ const logout = (req, res) =>
 	:	res.sendStatus(304);
 
 const register = async (req, res) => {
-	const { nickname, email, password } = req.body;
+	const { nickname, email, password, role } = req.body;
 
 	try {
 		const user = await authService.registerNewUser({
 			nickname,
 			email,
-			password
+			password,
+			role
 		});
 
 		return res

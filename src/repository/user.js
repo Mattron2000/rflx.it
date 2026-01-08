@@ -13,10 +13,15 @@ const TABLE_NAME = 'users';
  * @param {string} password - User's hashed or raw password.
  * @returns {Promise<any>} Promise resolving to the insert result.
  */
-function insertNewUser(nickname, email, password, user_role = 'base') {
+function insertNewUser(nickname, email, password, user_role) {
 	return bcrypt.hash(password, env.BCRYPT_SALT).then(async (hash) => {
 		const [user] = await queryBuilder(TABLE_NAME)
-			.insert({ nickname: nickname, email: email, password: hash, user_role: user_role })
+			.insert({
+				nickname: nickname,
+				email: email,
+				password: hash,
+				user_role: user_role
+			})
 			.returning(['nickname', 'email', 'user_role']);
 
 		return user;

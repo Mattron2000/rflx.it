@@ -17,4 +17,10 @@ const uploadPost = (req, res) => {
 		});
 };
 
-export default { uploadPost };
+export const getPostById = (req, res) =>
+	postService
+		.getPostById(req.params.id)
+		.then((post) => res.status(200).json(post))
+		.catch((err) => res.status(400).json(err));
+
+export default { uploadPost, getPostById };
