@@ -1,18 +1,18 @@
+'use strict';
+
 import queryBuilder from '../db/queryBuilder.js';
 
-const TABLE_NAME = 'photos';
-
-function insertPhoto(photoData) {
-	return queryBuilder(TABLE_NAME)
-		.insert({ photo_name: photoData.photo_name, user_nickname: photoData.user_nickname })
-		.then(() => photoData);
-}
+const TABLE_NAME = 'posts';
 
 const limit = 20;
-function getAllPhotos(page = 1) {
+function getPhotoBatchByPageNumber(page = 1) {
 	const offset = (page - 1) * limit;
 
-	return queryBuilder(TABLE_NAME).select('*').limit(limit).offset(offset);
+	return queryBuilder(TABLE_NAME)
+		.select('photo_name', 'user_nickname')
+		.orderBy('created_at', 'desc')
+		.limit(limit)
+		.offset(offset)
 }
 
-export default { insertPhoto, getAllPhotos };
+export default { getPhotoBatchByPageNumber };

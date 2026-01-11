@@ -1,139 +1,68 @@
-<link rel="stylesheet" href="/css/home.css" />
-
-<div id="dati-utente"></div>
-
-<hr />
+<link rel="stylesheet" href="/css/upload-post.css" />
+<link rel="stylesheet" href="/css/photo-feed.css" />
 
 <section class="feed" id="photo-feed"></section>
 
 <div id="scroll-sentinel" aria-hidden="true"></div>
 
-<div class="position-sticky bottom-0 end-0 p-4">
-	<button
-		class="position-absolute end-0 bottom-0 btn btn-lg btn-light p-4 m-4 upload-post-btn-start"
-		data-bs-toggle="modal"
-		data-bs-target="#uploadFormModal"
-		id="upload-post-btn-start">
-		<img
-			src="/assets/plus-solid.svg"
-			alt="plus-symbol"
-			width="32"
-			height="32" />
-	</button>
-</div>
+<button
+	id="upload-post-btn-start"
+	class="position-absolute end-0 bottom-0 btn btn-lg btn-light p-4 m-4"
+	data-bs-toggle="modal"
+	data-bs-target="#uploadPostModal">
+	<img src="/assets/plus-solid.svg" alt="plus-symbol" width="32" height="32" />
+</button>
 
 <div
 	class="modal fade"
-	id="uploadFeedback"
+	id="uploadPostModal"
+	data-bs-backdrop="static"
+	data-bs-keyboard="false"
 	tabindex="-1"
-	aria-labelledby="uploadFeedbackLabel"
+	aria-labelledby="uploadPostModalTitle"
 	aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="uploadPostModalTitle"></h1>
 				<button
-					id="uploadFeedbackDismiss"
 					type="button"
 					class="btn-close"
 					data-bs-dismiss="modal"
-					aria-label="Close"></button>
+					aria-label="Close"
+					id="uploadPostModalDismiss"></button>
 			</div>
-			<div class="modal-body" id="uploadFeedbackLabel"></div>
-		</div>
-	</div>
-</div>
-
-<div
-	class="modal fade"
-	id="uploadFormModal"
-	tabindex="-1"
-	aria-labelledby="uploadFormModalLabel"
-	aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button
-					id="uploadFormModalDismiss"
-					type="button"
-					class="btn-close"
-					data-bs-dismiss="modal"
-					aria-label="Close"></button>
-			</div>
-			<form
-				class="photo-uploader"
-				method="post"
-				enctype="multipart/form-data"
-				id="photo-uploader">
-				<div class="container">
-					<!-- Row 1: Image -->
-					<div class="photo-uploader__preview row m-2">
-						<img
-							id="photo-preview"
-							class="photo-uploader__img hidden"
-							alt="Photo preview" />
-
-						<span class="photo-uploader__placeholder"> Select image </span>
-
+			<div class="modal-body" id="uploadPostModalBody">
+				<form id="uploadPostForm" class="container">
+					<div class="upload-post_preview row m-2">
+						<img class="upload-post_img d-none" alt="Photo preview" />
+						<span class="upload-post_placeholder"> Select image </span>
 						<input
 							type="file"
 							name="photo"
-							id="photo-input"
+							class="upload-post_input"
 							accept="image/*"
-							required />
+							required
+							placeholder="Upload an image" />
 					</div>
-
-					<!-- Row 2: Description -->
-					<div class="photo-uploader__description row m-2">
-						<textarea
-							name="description"
-							rows="4"
-							placeholder="Write a description..."></textarea>
-					</div>
-
-					<!-- Row 3: Publish -->
-					<div class="row m-2">
-						<button type="submit" class="btn btn-primary">Publish</button>
-					</div>
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
-
-<div
-	class="modal fade bd-example-modal-lg"
-	id="PostModal"
-	tabindex="-1"
-	role="dialog"
-	aria-labelledby="PostModalLabel"
-	aria-hidden="true">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
-			<div class="modal-header d-flex justify-content-between">
-				<h5 class="modal-title" id="PostModalLabel">User profile here</h5>
-				<button
-					aria-label="Close"
-					data-dismiss="modal"
-					data-bs-target="#PostModal"
-					id="PostModalDismiss"
-					style="border: none; background: transparent">
-					<img
-						src="/assets/times-solid.svg"
-						alt="times-symbol"
-						width="16"
-						height="16" />
-				</button>
+					<textarea
+						class="upload-post_description"
+						name="description"
+						rows="4"
+						placeholder="Write a description..."></textarea>
+				</form>
 			</div>
-			<div class="modal-body row">
-				<div class="col-sm-7" id="PostModalImage"></div>
-				<div class="col-sm-5">
-					<b class="p-2">Descrizione</b>
-					<p id="PostModalDescription"></p>
-				</div>
-				<hr class="mt-4" />
-				<b class="p-2">Commenti</b>
-				<div id="PostModalComments">
-				</div>
+			<div class="modal-footer" id="uploadPostModalFooter">
+				<button
+					type="button"
+					class="btn btn-secondary"
+					id="uploadPostModalReset">
+					Reset
+				</button>
+				<button
+					type="button"
+					class="btn btn-primary"
+					id="uploadPostModalSubmit"></button>
 			</div>
 		</div>
 	</div>

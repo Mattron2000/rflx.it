@@ -19,6 +19,5 @@ page('/scripts/logout', () =>
 			if (res.ok) page.redirect('/home');
 		})
 );
-page('*', () => loadPage('notfound'));
 
 page();

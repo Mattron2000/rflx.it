@@ -1,3 +1,5 @@
+'use strict';
+
 import passport from 'passport';
 import LocalStrategy from 'passport-local';
 import bcrypt from 'bcrypt';
@@ -11,8 +13,7 @@ const verify = (email, password, done) => {
 	let errors = [];
 
 	if (!validator.isEmail(email)) errors.push('Invalid email format');
-	if (String(password).length < 8)
-		errors.push('Password is not long enough.');
+	if (String(password).length < 8) errors.push('Password is not long enough.');
 
 	if (errors.length > 0)
 		return done(null, false, { title: 'Invalid credentials', message: errors });
@@ -36,7 +37,9 @@ const verify = (email, password, done) => {
 passport.use(new LocalStrategy(customFieldNames, verify));
 
 passport.serializeUser((user, done) => {
-	process.nextTick(() => done(null, { nickname: user.nickname, email: user.email }));
+	process.nextTick(() =>
+		done(null, { nickname: user.nickname, email: user.email })
+	);
 });
 
 passport.deserializeUser((user, done) => {

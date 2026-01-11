@@ -7,13 +7,14 @@
 				<img
 					src="/assets/rflx-logo.png"
 					alt="RFLX logo"
-					class="rounded mx-auto d-block"
+					class="rounded mx-auto d-block my-4"
 					id="rflx-logo" />
 			</div>
 			<div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-				<form>
+				<form id="loginForm">
 					<div data-mdb-input-init class="form-outline mb-4">
 						<input
+							name="email"
 							type="email"
 							id="loginEmail"
 							class="form-control form-control-lg"
@@ -24,6 +25,7 @@
 
 					<div data-mdb-input-init class="form-outline mb-3">
 						<input
+							name="password"
 							type="password"
 							id="loginPassword"
 							class="form-control form-control-lg"
@@ -39,7 +41,7 @@
 							type="button"
 							data-mdb-button-init
 							data-mdb-ripple-init
-							class="btn btn-primary btn-lg"
+							class="btn btn-primary btn-lg w-100"
 							style="padding-left: 2.5rem; padding-right: 2.5rem">
 							Login
 						</button>
@@ -53,30 +55,3 @@
 		</div>
 	</div>
 </section>
-
-<div
-	class="modal fade"
-	id="loginFeedback"
-	tabindex="-1"
-	aria-labelledby="loginFeedbackLabel"
-	aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="loginFeedbackTitle"></h5>
-				<button
-					id="loginFeedbackDismiss"
-					type="button"
-					class="btn-close"
-					data-bs-dismiss="modal"
-					aria-label="Close"></button>
-			</div>
-			<div class="modal-body" id="loginFeedbackLabel"></div>
-			<div class="modal-footer">
-				<button id="loginFeedbackSubmit" type="button" class="btn btn-primary">
-					Enter
-				</button>
-			</div>
-		</div>
-	</div>
-</div>

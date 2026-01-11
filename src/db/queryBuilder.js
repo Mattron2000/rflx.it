@@ -1,3 +1,5 @@
+'use strict';
+
 import knex from 'knex';
 import env, { ENV_TYPE } from '../config/env.js';
 

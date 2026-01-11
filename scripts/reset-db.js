@@ -1,3 +1,5 @@
+'use strict';
+
 import fs from 'node:fs';
 import env from '../src/config/env.js';
 import { log } from '../src/logger.js';
@@ -11,11 +13,11 @@ if (fs.existsSync(env.DB_PATH)) {
 
 const queries = fs.readFileSync(env.DB_SCHEMA_PATH, 'utf-8');
 
-// Apply SQL schema (recreate automatically the DB file)
-for (const query of queries.split(';')) {
+// Apply SQL schema (recreate the DB file)
+for (const query of queries.split(';'))
 	if (query.trim() === '') continue;
 	else await queryBuilder.raw(query);
-}
+
 log('Schema created');
 
 // Close DB

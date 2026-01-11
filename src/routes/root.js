@@ -1,3 +1,5 @@
+'use strict';
+
 import { Router } from 'express';
 
 import apiV1Route, { currentApiDirectory as apiV1CAD } from './v1/api.js';

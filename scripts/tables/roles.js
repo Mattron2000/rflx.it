@@ -1,21 +1,28 @@
+'use strict';
+
 import { log } from '../../src/logger.js';
-import roleService from '../../src/service/role.js';
 
-const Role = { BASE: 'base', PHOTOGRAPHER: 'photographer' };
+import queryBuilder from '../../src/db/queryBuilder.js';
 
-export default function seedRoles() {
-	log('Seeding roles...');
+export const Role = { BASE: 'base', PHOTOGRAPHER: 'photographer' };
+
+const name = 'roles';
+
+function seed() {
+	log(`Seeding ${name}...`);
 
 	// prettier-ignore
-	const roles = [
+	const datas = [
 		{ name: Role.BASE },
 		{ name: Role.PHOTOGRAPHER }
   ];
 
-	const promises = roles.map(async (r) => {
-		await roleService
-			.addNewRole(r)
-			.then(() => log(`role seed: ${JSON.stringify(r)}`));
+	const promises = datas.map(async (r) => {
+		await queryBuilder(name)
+			.insert({ name: r.name })
+			.returning('*')
+			.then((res) => res[0])
+			.then((res) => log(`role seed: ${JSON.stringify(res)}`));
 	});
 
 	return Promise.all(promises)
@@ -23,4 +30,4 @@ export default function seedRoles() {
 		.catch((err) => log(err));
 }
 
-export { Role };
+export default { seed, Role };

@@ -1,14 +1,15 @@
 'use strict';
 
 import passport from '../config/passport.js';
+
 import { ValidationError, ConflictError } from '../error.js';
 
 import authService from '../service/auth.js';
 
 const check = (req, res) =>
 	req.isAuthenticated() ?
-		res.status(200).json({ authenticated: true, user: req.session.user })
-	:	res.status(401).json({ authenticated: false });
+		res.json({ authenticated: true, user: req.session.user })
+	:	res.json({ authenticated: false });
 
 const login = (req, res, next) => {
 	passport.authenticate('local', (err, user, info) => {
@@ -42,24 +43,16 @@ const login = (req, res, next) => {
 	})(req, res, next);
 };
 
-const logout = (req, res) =>
-	req.isAuthenticated() ?
-		req.session.destroy(() => {
-			res.clearCookie('sid');
-			res.sendStatus(204);
-		})
-	:	res.sendStatus(304);
-
 const register = async (req, res) => {
 	const { nickname, email, password, role } = req.body;
 
 	try {
-		const user = await authService.registerNewUser({
+		const user = await authService.registerNewUser(
 			nickname,
 			email,
 			password,
 			role
-		});
+		);
 
 		return res
 			.status(201)
@@ -67,7 +60,8 @@ const register = async (req, res) => {
 				ok: true,
 				message: 'Registration successful',
 				nickname: user.nickname,
-				email: user.email
+				email: user.email,
+				role: user.user_role
 			});
 	} catch (err) {
 		if (err instanceof ValidationError)
@@ -80,4 +74,12 @@ const register = async (req, res) => {
 	}
 };
 
-export default { check, login, logout, register };
+const logout = (req, res) =>
+	req.isAuthenticated() ?
+		req.session.destroy(() => {
+			res.clearCookie('sid');
+			res.sendStatus(204);
+		})
+	:	res.sendStatus(304);
+
+export default { check, login, register, logout };

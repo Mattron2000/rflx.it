@@ -6,8 +6,6 @@ node_modules/
 .env.*
 !.env.example
 
-db/db.sqlite
-db/sessions.sqlite
-
-public/assets/*.min.*
 public/images/posts/*
+
+TODO.txt

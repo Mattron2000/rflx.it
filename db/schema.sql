@@ -10,16 +10,10 @@ CREATE TABLE users (
 	FOREIGN KEY (user_role) REFERENCES roles (name)
 );
 
-CREATE TABLE photos (
-	photo_name		TEXT PRIMARY KEY,
-	user_nickname	TEXT NOT NULL,
-	FOREIGN KEY (user_nickname) REFERENCES users (nickname)
-);
-
 CREATE TABLE posts (
-	user_nickname	TEXT NOT NULL,
+	created_at		TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	photo_name		TEXT PRIMARY KEY,
-	description		TEXT NOT NULL,
-	FOREIGN KEY (user_nickname) REFERENCES users (nickname),
-	FOREIGN KEY (photo_name) REFERENCES photos (photo_name)
+	user_nickname	TEXT NOT NULL,
+	description		TEXT DEFAULT '',
+	FOREIGN KEY (user_nickname) REFERENCES users (nickname)
 );

@@ -1,0 +1,38 @@
+.upload-post_preview {
+	position: relative;
+	border: 1px dashed #ccc;
+	border-radius: 12px;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	padding: 0.5rem;
+}
+
+.upload-post_preview input[type='file'] {
+	position: absolute;
+	inset: 0;
+	opacity: 0;
+	cursor: pointer;
+}
+
+.upload-post_img {
+	max-width: 100%;
+	max-height: 60vh;
+	object-fit: contain;
+	display: block;
+}
+
+.upload-post_placeholder {
+	color: #888;
+	font-size: 0.9rem;
+	text-align: center;
+}
+
+.upload-post_description {
+	width: 100%;
+	padding: 0.5rem;
+	border-radius: 6px;
+	border: 1px solid #ccc;
+}

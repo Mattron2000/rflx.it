@@ -11,13 +11,14 @@
 					id="rflx-logo" />
 			</div>
 			<div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-				<form>
+				<form id="registerForm">
 					<div data-mdb-input-init class="form-outline mb-4 mt-2">
 						<input
 							type="text"
 							id="registerNickname"
 							class="form-control form-control-lg"
 							placeholder="Enter a valid name"
+							name="nickname"
 							required />
 						<label class="form-label" for="registerNickname">Nickname</label>
 					</div>
@@ -28,6 +29,7 @@
 							id="registerEmail"
 							class="form-control form-control-lg"
 							placeholder="Enter a valid email address"
+							name="email"
 							required />
 						<label class="form-label" for="registerEmail">Email address</label>
 					</div>
@@ -39,6 +41,7 @@
 							class="form-control form-control-lg"
 							placeholder="Enter password"
 							required
+							name="password"
 							minlength="8" />
 						<label class="form-label" for="registerPassword">Password</label>
 					</div>
@@ -50,20 +53,25 @@
 							class="form-control form-control-lg"
 							placeholder="Enter password"
 							required
-							minlength="8" />
-						<label class="form-label" for="confirmPassword"
-							>Confirm password</label>
+							minlength="8"
+							name="confirmPassword" />
+						<label class="form-label" for="confirmPassword">
+							Confirm password
+						</label>
 					</div>
 
-					<div class="form-outline input-group mb-4 mt-2">
-						<div class="input-group-prepend">
-							<label class="input-group-text" for="registerRole">Role</label>
-						</div>
-						<select class="custom-select" id="registerRole">
+					<div data-mdb-input-init class="form-outline mb-3">
+						<select
+							class="form-select"
+							id="registerRole"
+							placeholder="Select role"
+							name="role"
+							required>
 							<option selected>Choose...</option>
 							<option value="base">Base</option>
 							<option value="photographer">Photographer</option>
 						</select>
+						<label class="form-label" for="registerRole"> Role </label>
 					</div>
 
 					<div class="text-center text-lg-start mt-4 pt-2">
@@ -86,32 +94,3 @@
 		</div>
 	</div>
 </section>
-
-<div
-	class="modal fade"
-	id="registerFeedback"
-	tabindex="-1"
-	aria-labelledby="registerFeedbackLabel"
-	aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="registerFeedbackTitle"></h5>
-				<button
-					id="registerFeedbackDismiss"
-					type="button"
-					class="btn-close"
-					data-bs-dismiss="modal"
-					aria-label="Close"></button>
-			</div>
-			<div class="modal-footer">
-				<button
-					id="registerFeedbackSubmit"
-					type="button"
-					class="btn btn-primary">
-					Login
-				</button>
-			</div>
-		</div>
-	</div>
-</div>

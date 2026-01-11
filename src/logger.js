@@ -1,3 +1,5 @@
+'use strict';
+
 import morgan from 'morgan';
 
 import env, { ENV_TYPE } from './config/env.js';

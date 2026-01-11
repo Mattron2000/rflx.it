@@ -21,7 +21,6 @@ export default multer({
 	fileFilter: (req, file, done) => {
 		if (!file.mimetype.startsWith('image/'))
 			done(new Error('Only image files are allowed'), false);
-		else
-			done(null, true);
+		else done(null, true);
 	}
 });

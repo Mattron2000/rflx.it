@@ -1,87 +1,65 @@
-/* global document bootstrap page */
+/* global document page */
 'use strict';
 
-export default function () {
-	const loginEmail = document.getElementById('loginEmail');
-	const loginPassword = document.getElementById('loginPassword');
+import ModalHandler from './modal.js';
 
+export default function () {
 	const loginButton = document.getElementById('loginSubmit');
-	const loginFeedbackSubmit = document.getElementById('loginFeedbackSubmit');
 
 	loginButton.addEventListener('click', () => {
-		const email = loginEmail.value;
-		const password = loginPassword.value;
+		const form = document.getElementById('loginForm');
+		const formData = new FormData(form);
+
+		const email = formData.get('email');
+		const password = formData.get('password');
 
 		fetch('/api/v1/auth/login', {
 			method: 'POST',
-			headers: new Headers({ 'Content-Type': 'application/json' }),
-			body: JSON.stringify({ email: email, password: password })
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ email, password })
 		})
-			.then((response) => response.json())
+			.then((res) => res.json())
 			.then((res) => setupModal(res));
-	});
-
-	loginFeedbackSubmit.addEventListener('click', () => {
-		hideModal();
-		page('/home');
 	});
 }
 
-function setupModal(response) {
-	resetModal();
+function setupModal(res) {
+	const modal = new ModalHandler();
+
+	modal.reset();
 
 	// it's all ok (login success) make submit button visible
-	if (response.ok) showSubmitButton();
+	if (res.ok) {
+		const submitHandler = () => {
+			modal.hide();
+			page('/home');
+		};
 
-	// standard passport missing credentials
-	if (!response.title) {
-		document.getElementById('loginFeedbackTitle').innerHTML = response.messages;
-		showModal();
+		modal.setSubmitButton('Enter', submitHandler, true);
+	}
+
+	modal.showTitle();
+	if (!res.title) {
+		modal.setTitle(res.messages);
+		modal.launch();
 		return;
-	} else
-		document.getElementById('loginFeedbackTitle').innerHTML = response.title;
+	}
+	modal.setTitle(res.title);
 
-	let output;
+	let output = '<ul>';
 
 	// array of error causes
 	try {
-		const feedbacks = response.messages;
-		output = '<ul>';
+		const feedbacks = res.messages;
 		feedbacks.forEach((message) => (output += '<li>' + message + '</li>'));
-		output += '</ul>';
 		// eslint-disable-next-line no-unused-vars
 	} catch (e) {
-		// single cause string
-		output = '<ul><li>' + response.messages + '</li></ul>';
+		output = '<li>' + res.messages + '</li>';
+	} finally {
+		output += '</ul>';
 	}
 
-	document.getElementById('loginFeedbackLabel').innerHTML = output;
+	modal.setBody(output);
 
-	showModal();
-}
-
-function resetModal() {
-	document.getElementById('loginFeedbackTitle').innerHTML = '';
-	document.getElementById('loginFeedbackLabel').innerHTML = '';
-
-	hideSubmitButton();
-}
-
-function hideSubmitButton() {
-	document.getElementById('loginFeedbackSubmit').classList.add('d-none');
-}
-
-function showSubmitButton() {
-	document.getElementById('loginFeedbackSubmit').classList.remove('d-none');
-}
-
-function showModal() {
-	const modalEl = document.getElementById('loginFeedback');
-	const modal = new bootstrap.Modal(modalEl);
-
-	modal.show();
-}
-
-function hideModal() {
-	bootstrap.Modal.getInstance(document.getElementById('loginFeedback')).hide();
+	modal.launch();
 }

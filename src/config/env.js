@@ -1,3 +1,5 @@
+'use strict';
+
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -29,7 +31,7 @@ if (!DB_PATH) throw new Error(`DB_PATH not set: ${DB_PATH}`);
 
 let filepath = path.resolve(DB_PATH);
 
-if (!fs.existsSync(filepath)) console.warn(`DB_PATH not exists: ${DB_PATH}`);
+if (!fs.existsSync(filepath)) console.warn(`DB_PATH not exists: ${DB_PATH}\n\tCreate new DB file with 'npm run db:reset'...`);
 
 // DB_SCHEMA_PATH
 if (!DB_SCHEMA_PATH)
@@ -49,12 +51,12 @@ if (!SESSION_SECRET)
 
 // SESSION_DB_PATH
 if (!SESSION_DB_PATH)
-	throw new Error(`SESSION_DB_PATH not set: ${SESSION_DB_PATH}`);
+	console.warn(`SESSION_DB_PATH not set: ${SESSION_DB_PATH}`);
 
 filepath = path.resolve(SESSION_DB_PATH);
 
 if (!fs.existsSync(filepath))
-	throw new Error(`SESSION_DB_PATH not exists: ${SESSION_DB_PATH}`);
+	console.warn(`SESSION_DB_PATH not exists: ${SESSION_DB_PATH}`);
 
 // POST_IMAGE_DIR
 if (!POST_IMAGE_DIR)

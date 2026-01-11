@@ -21,4 +21,3 @@ const setupNavbar = async () => {
 };
 
 export default setupNavbar;
-

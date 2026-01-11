@@ -1,90 +1,55 @@
-/* global document bootstrap page */
+/* global document page */
 'use strict';
 
+import ModalHandler from './modal.js';
+
 export default function () {
-	const registerNickname = document.getElementById('registerNickname');
-	const registerEmail = document.getElementById('registerEmail');
-	const registerPassword = document.getElementById('registerPassword');
-	const confirmPassword = document.getElementById('confirmPassword');
-
-	const registerRole = document.getElementById('registerRole');
-
 	const registerButton = document.getElementById('registerSubmit');
-	const registerFeedbackSubmit = document.getElementById(
-		'registerFeedbackSubmit'
-	);
 
 	registerButton.addEventListener('click', () => {
-		const nickname = registerNickname.value;
-		const email = registerEmail.value;
-		const password = registerPassword.value;
+		const form = document.getElementById('registerForm');
+		const formData = new FormData(form);
 
-		if (registerRole.selectedIndex === 0) {
+		const nickname = formData.get('nickname');
+		const email = formData.get('email');
+		const password = formData.get('password');
+		const confirmPassword = formData.get('confirmPassword');
+		const role = formData.get('role');
+
+		if (!(role === 'base' || role === 'photographer')) {
 			setupModal({ ok: false, message: 'Please select a role' });
 			return;
 		}
 
-		const role = registerRole.value;
-
-		if (password !== confirmPassword.value) {
+		if (password !== confirmPassword) {
 			setupModal({ ok: false, message: 'Passwords do not match' });
 			return;
 		}
 
 		fetch('/api/v1/auth/register', {
 			method: 'POST',
-			headers: new Headers({ 'Content-Type': 'application/json' }),
-			body: JSON.stringify({
-				nickname: nickname,
-				email: email,
-				password: password,
-				role: role
-			})
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ nickname, email, password, role })
 		})
-			.then((response) => response.json())
+			.then((res) => res.json())
 			.then((res) => setupModal(res));
 	});
-
-	registerFeedbackSubmit.addEventListener('click', () => {
-		hideModal();
-		page('/login');
-	});
 }
 
-function setupModal(response) {
-	resetModal();
+function setupModal(res) {
+	const modal = new ModalHandler();
 
-	// it's all ok (register success) make submit button visible
-	if (response.ok) showSubmitButton();
+	modal.reset();
 
-	document.getElementById('registerFeedbackTitle').innerHTML = response.message;
+	if (res.ok) {
+		const submitHandler = () => {
+			modal.hide();
+			page('/login');
+		};
 
-	showModal();
-}
+		modal.setSubmitButton('Login', submitHandler, true);
+	}
 
-function resetModal() {
-	document.getElementById('registerFeedbackTitle').innerHTML = '';
-
-	hideSubmitButton();
-}
-
-function hideSubmitButton() {
-	document.getElementById('registerFeedbackSubmit').classList.add('d-none');
-}
-
-function showSubmitButton() {
-	document.getElementById('registerFeedbackSubmit').classList.remove('d-none');
-}
-
-function showModal() {
-	const modalEl = document.getElementById('registerFeedback');
-	const modal = new bootstrap.Modal(modalEl);
-
-	modal.show();
-}
-
-function hideModal() {
-	bootstrap.Modal.getInstance(
-		document.getElementById('registerFeedback')
-	).hide();
+	modal.setTitle(res.message);
+	modal.launch();
 }
