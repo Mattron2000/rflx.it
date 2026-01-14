@@ -10,13 +10,13 @@ export default function () {
 		const form = document.getElementById('loginForm');
 		const formData = new FormData(form);
 
-		const email = formData.get('email');
-		const password = formData.get('password');
-
 		fetch('/api/v1/auth/login', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ email, password })
+			body: JSON.stringify({
+				email: formData.get('email'),
+				password: formData.get('password')
+			})
 		})
 			.then((res) => res.json())
 			.then((res) => setupModal(res));

@@ -1,10 +1,12 @@
 'use strict';
 
+import { hashSync } from "bcrypt";
+
 import { log } from '../../src/logger.js';
+import env from "../../src/config/env.js";
+import queryBuilder from '../../src/db/queryBuilder.js';
 
 import { Role } from './roles.js';
-
-import queryBuilder from '../../src/db/queryBuilder.js';
 
 const name = 'users';
 
@@ -19,14 +21,11 @@ function seed() {
 		{ nickname: 'Wario',		email: 'wario@gmail.com',		password: 'asdfasdf',	user_role: Role.BASE }
   ];
 
-	const promises = datas.map(async (r) => {
+	const promises = datas.map(async (u) => {
+		u.password = hashSync(u.password, env.BCRYPT_SALT);
+
 		await queryBuilder(name)
-			.insert({
-				nickname: r.nickname,
-				email: r.email,
-				password: r.password,
-				user_role: r.user_role
-			})
+			.insert(u)
 			.returning('*')
 			.then((res) => res[0])
 			.then((res) => log(`user seed: ${JSON.stringify(res)}`));

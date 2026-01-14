@@ -24,4 +24,6 @@ router.post(
 	postController.uploadPost
 );
 
+router.get('/:id', postController.getPostById);
+
 export default router;

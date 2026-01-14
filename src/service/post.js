@@ -15,4 +15,10 @@ const addNewPost = (file, userNickname, description = '') => {
 	return postRepository.insertPost(postData).catch((err) => err);
 };
 
-export default { addNewPost };
+const getPostById = (id) => {
+	return postRepository
+		.selectPostWhereId(id)
+		.catch((err) => err);
+};
+
+export default { addNewPost, getPostById };

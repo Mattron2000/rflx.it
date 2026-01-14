@@ -15,4 +15,13 @@ function insertPost(photoData) {
 		.catch((err) => err);
 }
 
-export default { insertPost };
+function selectPostWhereId(id) {
+	return queryBuilder(TABLE_NAME)
+		.select('*')
+		.where('photo_name', id)
+		.first()
+		.then((post) => post)
+		.catch((err) => err);
+}
+
+export default { insertPost, selectPostWhereId };

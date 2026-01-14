@@ -19,7 +19,7 @@ function seed() {
 
 	const promises = datas.map(async (r) => {
 		await queryBuilder(name)
-			.insert({ name: r.name })
+			.insert(r)
 			.returning('*')
 			.then((res) => res[0])
 			.then((res) => log(`role seed: ${JSON.stringify(res)}`));
