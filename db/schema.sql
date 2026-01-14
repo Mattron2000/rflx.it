@@ -17,3 +17,13 @@ CREATE TABLE posts (
 	description		TEXT DEFAULT '',
 	FOREIGN KEY (user_nickname) REFERENCES users (nickname)
 );
+
+CREATE TABLE comments (
+	created_at 	TEXT DEFAULT CURRENT_TIMESTAMP,
+	post_id		TEXT NOT NULL,
+	user_nickname TEXT NOT NULL,
+	comment		TEXT NOT NULL,
+	PRIMARY KEY (created_at, user_nickname),
+	FOREIGN KEY (post_id) REFERENCES posts (photo_name),
+	FOREIGN KEY (user_nickname) REFERENCES users (nickname)
+);

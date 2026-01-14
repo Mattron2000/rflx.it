@@ -8,6 +8,7 @@ import multer from '../../config/multer.js';
 import { isAuthenticated, isPhotographer } from '../../permission.js';
 
 import postController from '../../controller/post.js';
+import commentRouter, { currentApiDirectory as commentCAD } from './comment.js';
 
 export const currentApiDirectory = '/posts';
 
@@ -25,5 +26,6 @@ router.post(
 );
 
 router.get('/:id', postController.getPostById);
+router.use('/:id' + commentCAD, commentRouter);
 
 export default router;
