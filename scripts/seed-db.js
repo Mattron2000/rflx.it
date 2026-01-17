@@ -9,6 +9,7 @@ import queryBuilder from '../src/db/queryBuilder.js';
 
 import roles from './tables/roles.js';
 import users from './tables/users.js';
+import posts from './tables/posts.js';
 
 // check DB if exist
 if (!fs.existsSync(env.DB_PATH)) {
@@ -18,6 +19,7 @@ if (!fs.existsSync(env.DB_PATH)) {
 // Seeding
 await Promise.all([roles.seed()]);
 await Promise.all([users.seed()]); // deps: roles
+await Promise.all([posts.seed()]); // deps: users
 
 // Close DB
 await queryBuilder.destroy();

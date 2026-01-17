@@ -1,3 +1,5 @@
+'use strict';
+
 import multer from 'multer';
 import { extname } from 'path';
 
@@ -8,7 +10,7 @@ const storage = multer.diskStorage({
 	filename: (req, file, done) => done(null, generateFilename(file.originalname))
 });
 
-const generateFilename = (name) => {
+export const generateFilename = (name) => {
 	const extension = extname(name);
 	return `${crypto.randomUUID()}${extension}`;
 };

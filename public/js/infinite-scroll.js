@@ -1,7 +1,16 @@
-/* global IntersectionObserver */
+/* global IntersectionObserver document */
 'use strict';
 
-export default class InfiniteScroll {
+import { fetchPosts } from './fetch-posts.js';
+
+export default function setupScrollSentinel(feedId, sentinelId) {
+	const feed = document.getElementById(feedId);
+	const sentinel = document.getElementById(sentinelId);
+
+	new InfiniteScroll(feed, sentinel, fetchPosts);
+}
+
+class InfiniteScroll {
 	constructor(feedEl, sentinelEl, loadFn) {
 		this.feedEl = feedEl;
 		this.loadFn = loadFn;

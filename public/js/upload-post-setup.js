@@ -2,8 +2,21 @@
 'use strict';
 
 import ModalHandler from './modal.js';
+import { loadSession, getSession } from './session.js';
 
-export default function setupUploadForm() {
+export async function setupUploadBtn() {
+	await loadSession();
+
+	const uploadBtnStart = document.getElementById('upload-post-btn-start');
+
+	const { authenticated, user } = getSession();
+	if (!authenticated || user.role !== 'photographer')
+		uploadBtnStart.classList.add('d-none');
+	else
+		uploadBtnStart.classList.remove('d-none');
+}
+
+export function setupUploadForm() {
 	const modal = new ModalHandler('uploadPostModal');
 	const form = document.getElementById('uploadPostForm');
 

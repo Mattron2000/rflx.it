@@ -2,10 +2,6 @@ node_modules/
 
 .temp/
 
-.env
-.env.*
-!.env.example
-
 public/images/posts/*
 
 TODO.txt
