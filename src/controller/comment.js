@@ -11,4 +11,20 @@ const getAllCommentsByPostId = (req, res) => {
 		.catch((err) => res.status(400).json(err));
 };
 
-export default { getAllCommentsByPostId };
+const uploadComment = (req, res) => {
+	const { id } = req.params;
+	const { comment } = req.body;
+
+	commentService
+		.addNewComment(id, comment, req.session.user.nickname)
+		.then((comment) =>
+			res
+				.status(201)
+				.json({ message: 'Comment uploaded successfully', comment: comment[0] })
+		)
+		.catch((err) => {
+			res.status(400).json({ message: err.message });
+		});
+};
+
+export default { getAllCommentsByPostId, uploadComment };

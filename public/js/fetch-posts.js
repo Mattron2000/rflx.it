@@ -1,4 +1,4 @@
-/* global document */
+/* global document alert */
 'use strict';
 
 import ModalHandler from './modal.js';
@@ -37,7 +37,8 @@ function createPhotoCard(post) {
 
 		let promises = [
 			setPostDescription(photo_name),
-			setPostComments(photo_name)
+			setPostComments(photo_name),
+			setUploadComment(photo_name)
 		];
 
 		Promise.all(promises);
@@ -63,27 +64,60 @@ async function setPostComments(photo_name) {
 	return fetch(`/api/v1/posts/${photo_name}/comments`)
 		.then((res) => res.json())
 		.then((res) => {
-			if (res.message) throw new Error(res.message);
 			if (!res.comments || res.comments.length === 0)
 				throw new Error('No comments here');
 
-			res.comments
-				.forEach((comment) => createCommentCard(comment))
-				.forEach((comment) => {
-					document.getElementById('ViewPostModalComments').appendChild(comment);
-				});
-		})
-		.catch(
-			(err) =>
-				(document.getElementById('ViewPostModalComments').innerHTML =
-					err.message)
-		);
+			let template = '';
+			for (const comment of res.comments)
+				template += createCommentCard(comment);
+
+			document.getElementById('ViewPostModalComments').innerHTML = template;
+		});
 }
 
 function createCommentCard(comment) {
 	return `
-		<div class="comment">
-			<p>${comment.comment}</p>
+		<div class="comment-box">
+			<span class="comment">
+				<b class="px-2">${comment.user_nickname}</b>
+				<p>${comment.comment}</p>
+			</span>
+			<p class = "coment-datetime">${comment.created_at}</p>
 		</div>
 		`;
+}
+
+function setUploadComment(photo_name) {
+	const form = document.getElementById('ViewPostModalCommentForm');
+	return new Promise(() => {
+		document
+			.getElementById('ViewPostModalCommentForm')
+			.addEventListener('submit', (e) => {
+				e.preventDefault();
+				const formData = new FormData(form);
+
+				const body = { comment: formData.get('comment') };
+
+				if (body.comment.length === 0) return;
+
+				document.getElementById('ViewPostModalComment').value = '';
+
+				fetch(`/api/v1/posts/${photo_name}/comments`, {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify(body)
+				})
+					.then((res) => res.json())
+					.then((res) => {
+						const template = createCommentCard(res.comment);
+
+						document
+							.getElementById('ViewPostModalComments')
+							.insertAdjacentHTML('afterbegin', template);
+					})
+					.catch(() =>
+						alert('Ti devi autenticare per sfruttare questa funzione')
+					);
+			});
+	});
 }

@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="/css/upload-post.css" />
 <link rel="stylesheet" href="/css/photo-feed.css" />
+<link rel="stylesheet" href="/css/post.css" />
 
 <section class="feed" id="photo-feed"></section>
 
@@ -94,10 +95,16 @@
 					<p id="ViewPostModalDescription"></p>
 				</div>
 				<hr class="mt-4" />
+				<form class="d-flex" role="text" id="ViewPostModalCommentForm">
+					<input
+					class="form-control me-2"
+					type="text"
+					placeholder="Write comment here"
+					id="ViewPostModalComment"
+					name="comment" />
+				</form>
+				<hr class="mt-4" />
 				<b class="p-2">Commenti</b>
-				<div id="ViewPostModalCommentForm">
-					<!-- Comment form -->
-				</div>
 				<div id="ViewPostModalComments"></div>
 			</div>
 		</div>

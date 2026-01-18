@@ -10,4 +10,11 @@ function selectAllCommentsByPostId(photo_name) {
 		.catch((err) => err);
 }
 
-export default { selectAllCommentsByPostId };
+function insertComment(post_id, comment, user_nickname) {
+	return queryBuilder(TABLE_NAME)
+		.insert({ post_id, user_nickname, comment })
+		.returning('*')
+		.catch((err) => err);
+}
+
+export default { selectAllCommentsByPostId, insertComment };

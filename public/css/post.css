@@ -1,0 +1,14 @@
+.comment-box {
+	display: flex;
+	margin-bottom: 1rem;
+	justify-content: space-between;
+}
+
+.comment {
+	display: flex;
+}
+
+.coment-datetime {
+	color: grey;
+	font-size: 0.9rem;
+}
