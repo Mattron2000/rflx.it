@@ -21,4 +21,16 @@ const getPostById = (id) => {
 		.catch((err) => err);
 };
 
-export default { addNewPost, getPostById };
+const getPostsByPageNumber = (page = 1) => {
+	if (isNaN(page) || page < 1) throw new Error('Invalid page number');
+
+	return postRepository.selectPostsWherePageNumber(page);
+};
+
+const getPostsBySearchQuery = (query = '') => {
+	if (query === '') postRepository.selectPostsWherePageNumber();
+
+	// TODO: implement search
+}
+
+export default { addNewPost, getPostById, getPostsByPageNumber, getPostsBySearchQuery };

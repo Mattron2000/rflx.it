@@ -17,6 +17,8 @@ const router = Router();
 router.use(passport.initialize());
 router.use(passport.session());
 
+router.get('/', postController.getPosts);
+
 router.post(
 	'/',
 	isAuthenticated,

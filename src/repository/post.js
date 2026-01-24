@@ -24,4 +24,15 @@ function selectPostWhereId(id) {
 		.catch((err) => err);
 }
 
-export default { insertPost, selectPostWhereId };
+const limit = 20;
+function selectPostsWherePageNumber(page = 1) {
+	const offset = (page - 1) * limit;
+
+	return queryBuilder(TABLE_NAME)
+		.select('photo_name', 'user_nickname')
+		.orderBy('created_at', 'desc')
+		.limit(limit)
+		.offset(offset)
+}
+
+export default { insertPost, selectPostWhereId, selectPostsWherePageNumber };

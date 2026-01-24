@@ -1,17 +1,18 @@
 /* global document alert */
+
 'use strict';
 
 import ModalHandler from './modal.js';
 
 export async function fetchPosts(page) {
-	const res = await fetch(`/api/v1/photos?page=${page}`);
+	const res = await fetch(`/api/v1/posts?page=${page}`);
 	if (!res.ok) return [];
 
 	const data = await res.json();
 	return data.map(createPhotoCard);
 }
 
-function createPhotoCard(post) {
+export function createPhotoCard(post) {
 	const { photo_name } = post;
 
 	const card = document.createElement('article');

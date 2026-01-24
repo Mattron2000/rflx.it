@@ -13,10 +13,29 @@ const uploadPost = (req, res) => {
 		});
 };
 
-export const getPostById = (req, res) =>
+const getPostById = (req, res) =>
 	postService
 		.getPostById(req.params.id)
 		.then((post) => res.status(200).json(post))
 		.catch((err) => res.status(400).json(err));
 
-export default { uploadPost, getPostById };
+const getPosts = (req, res) => {
+	const page = req.query.page || 1;
+
+	if (req.query.search !== undefined) {
+		const search = req.query.search || '';
+
+		if (search !== '')
+			return postService
+				.getPostsBySearchQuery(search)
+				.then((posts) => res.status(200).json(posts))
+				.catch((err) => res.status(400).json(err));
+	}
+
+	postService
+		.getPostsByPageNumber(page)
+		.then((posts) => res.status(200).json(posts))
+		.catch((err) => res.status(400).json(err));
+};
+
+export default { uploadPost, getPostById, getPosts };
