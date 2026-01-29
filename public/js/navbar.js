@@ -1,4 +1,4 @@
-/* global document page*/
+/* global document page */
 
 'use strict';
 
@@ -51,15 +51,19 @@ function handleSearch(e) {
 }
 
 async function searchPosts(query) {
-	const res = await fetch(`/api/v1/posts?search=${query}`);
-	if (!res.ok) return [];
+	const res = await fetch(`/api/v1/posts?search=${encodeURIComponent(query)}`);
 
 	const data = await res.json();
-	const posts = data.map(createPhotoCard);
 
 	const feed = document.getElementById('photo-feed');
 
-	posts.forEach((post) => feed.appendChild(post));
+	feed.innerHTML = '';
+
+	if (res.ok) {
+		const posts = data.posts.map(createPhotoCard);
+
+		posts.forEach((post) => feed.appendChild(post));
+	} else feed.innerHTML = `<p>${data.message}</p>`;
 }
 
 export default setupNavbar;

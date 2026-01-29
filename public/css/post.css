@@ -8,7 +8,31 @@
 	display: flex;
 }
 
-.coment-datetime {
+.hashtag {
+  color: deepskyblue;
+}
+
+.comment-datetime {
 	color: grey;
 	font-size: 0.9rem;
+}
+
+@media (max-width: 575px) {
+	#ViewPostModalImage {
+		width: 100%;
+		justify-content: center;
+		align-items: center;
+		overflow: hidden;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		overflow: hidden;
+	}
+
+	.post-image {
+		max-width: 100%;
+		max-height: 100%;
+		object-fit: contain;
+		display: block;
+	}
 }

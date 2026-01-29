@@ -1,4 +1,4 @@
-/* global document alert */
+/* global document */
 
 'use strict';
 
@@ -13,13 +13,14 @@ export async function fetchPosts(page) {
 }
 
 export function createPhotoCard(post) {
-	const { photo_name } = post;
+	const { photo_name, user_nickname } = post;
 
 	const card = document.createElement('article');
 	card.classList.add('photo-card', 'card');
 
 	card.innerHTML = `
-		<img src="/images/posts/${photo_name}"
+		<img
+			src="/images/posts/${photo_name}"
 			alt="${photo_name}"
 			class="card-img-top" />
 	`;
@@ -27,6 +28,9 @@ export function createPhotoCard(post) {
 	card.addEventListener('click', () => {
 		const modal_name = 'ViewPostModal';
 		const modal = new ModalHandler(modal_name);
+
+		modal.setTitle(user_nickname);
+
 		const image = document.getElementById(modal_name + 'Image');
 
 		image.innerHTML = `
@@ -36,13 +40,9 @@ export function createPhotoCard(post) {
 			class="img-fluid" />
 		`;
 
-		let promises = [
-			setPostDescription(photo_name),
-			setPostComments(photo_name),
-			setUploadComment(photo_name)
-		];
-
-		Promise.all(promises);
+		setPostDescription(photo_name);
+		setPostComments(photo_name);
+		setUploadComment();
 
 		modal.launch();
 	});
@@ -54,6 +54,13 @@ async function setPostDescription(photo_name) {
 	return fetch(`/api/v1/posts/${photo_name}`)
 		.then((res) => (!res.ok ? 'No description here' : res.json()))
 		.then((res) => res.description)
+		.then((description) => (description = description || 'No description here'))
+		.then((description) =>
+			description.replace(
+				/(#[a-zA-Z0-9_]+)/g,
+				'<span class="hashtag">$1</span>'
+			)
+		)
 		.then(
 			(description) =>
 				(document.getElementById('ViewPostModalDescription').innerHTML =
@@ -62,17 +69,22 @@ async function setPostDescription(photo_name) {
 }
 
 async function setPostComments(photo_name) {
+	const comments = document.getElementById('ViewPostModalComments');
+	comments.innerHTML = '';
+
 	return fetch(`/api/v1/posts/${photo_name}/comments`)
 		.then((res) => res.json())
 		.then((res) => {
-			if (!res.comments || res.comments.length === 0)
-				throw new Error('No comments here');
+			if (!res.comments || res.comments.length === 0) {
+				comments.innerHTML = `<p>No comments here</p>`;
+				return;
+			}
 
 			let template = '';
 			for (const comment of res.comments)
 				template += createCommentCard(comment);
 
-			document.getElementById('ViewPostModalComments').innerHTML = template;
+			comments.innerHTML = template;
 		});
 }
 
@@ -83,42 +95,49 @@ function createCommentCard(comment) {
 				<b class="px-2">${comment.user_nickname}</b>
 				<p>${comment.comment}</p>
 			</span>
-			<p class = "coment-datetime">${comment.created_at}</p>
+			<p class = "comment-datetime">${comment.created_at}</p>
 		</div>
 		`;
 }
 
-function setUploadComment(photo_name) {
+function setUploadComment() {
 	const form = document.getElementById('ViewPostModalCommentForm');
-	return new Promise(() => {
-		document
-			.getElementById('ViewPostModalCommentForm')
-			.addEventListener('submit', (e) => {
-				e.preventDefault();
-				const formData = new FormData(form);
 
-				const body = { comment: formData.get('comment') };
+	form.addEventListener('submit', (e) => {
+		e.preventDefault();
 
-				if (body.comment.length === 0) return;
+		const formData = new FormData(form);
 
-				document.getElementById('ViewPostModalComment').value = '';
+		const body = { comment: formData.get('comment') };
 
-				fetch(`/api/v1/posts/${photo_name}/comments`, {
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify(body)
-				})
-					.then((res) => res.json())
-					.then((res) => {
-						const template = createCommentCard(res.comment);
+		if (body.comment.length === 0) return;
 
-						document
-							.getElementById('ViewPostModalComments')
-							.insertAdjacentHTML('afterbegin', template);
-					})
-					.catch(() =>
-						alert('Ti devi autenticare per sfruttare questa funzione')
-					);
+		document.getElementById('ViewPostModalComment').value = '';
+
+		const imageDiv = document.getElementById('ViewPostModalImage');
+		const imageNode = imageDiv.querySelector('img');
+		const photo_name = imageNode.getAttribute('alt');
+
+		fetch(`/api/v1/posts/${photo_name}/comments`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(body)
+		})
+			.then((res) => res.json())
+			.then((res) => {
+				const template = createCommentCard(res.comment);
+
+				document
+					.getElementById('ViewPostModalComments')
+					.insertAdjacentHTML('afterbegin', template);
+			})
+			.catch(() => {
+				const modal = new ModalHandler();
+
+				modal.setTitle('Errore');
+				modal.setBody('Ti devi autenticare per sfruttare questa funzione');
+
+				modal.launch();
 			});
 	});
 }

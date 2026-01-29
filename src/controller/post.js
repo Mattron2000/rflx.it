@@ -28,8 +28,8 @@ const getPosts = (req, res) => {
 		if (search !== '')
 			return postService
 				.getPostsBySearchQuery(search)
-				.then((posts) => res.status(200).json(posts))
-				.catch((err) => res.status(400).json(err));
+				.then((posts) => res.status(200).json({ ok: true, posts: posts }))
+				.catch(() => res.status(404).json({ ok: false, message: 'No posts found' }));
 	}
 
 	postService

@@ -32,7 +32,27 @@ function selectPostsWherePageNumber(page = 1) {
 		.select('photo_name', 'user_nickname')
 		.orderBy('created_at', 'desc')
 		.limit(limit)
-		.offset(offset)
+		.offset(offset);
 }
 
-export default { insertPost, selectPostWhereId, selectPostsWherePageNumber };
+function selectPostsWhereSearchQuery(nicknames, tags, description) {
+	let result = queryBuilder(TABLE_NAME).select('*');
+
+	if (nicknames.length > 0) result = result.whereIn('user_nickname', nicknames);
+	if (tags.length > 0)
+		for (const tag of tags)
+			result = result.where('description', 'like', `%#${tag}%`);
+	if (description)
+		result = result.where('description', 'like', `%${description}%`);
+
+	result = result.orderBy('created_at', 'desc');
+
+	return result.returning('*');
+}
+
+export default {
+	insertPost,
+	selectPostWhereId,
+	selectPostsWherePageNumber,
+	selectPostsWhereSearchQuery
+};

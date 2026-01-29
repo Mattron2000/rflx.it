@@ -15,10 +15,10 @@ function seed() {
 
 	// prettier-ignore
 	const datas = [
-		{ nickname: 'Luigi',		email: 'luigi@gmail.com',		password: 'zxcvzxcv',	user_role: Role.PHOTOGRAPHER },
 		{ nickname: 'Mario',		email: 'mario@gmail.com',		password: '12341234',	user_role: Role.PHOTOGRAPHER },
-		{ nickname: 'Waluigi',	email: 'waluigi@gmail.com',	password: 'qwerqwer',	user_role: Role.BASE },
-		{ nickname: 'Wario',		email: 'wario@gmail.com',		password: 'asdfasdf',	user_role: Role.BASE }
+		{ nickname: 'Luigi',		email: 'luigi@gmail.com',		password: '56875687',	user_role: Role.PHOTOGRAPHER },
+		{ nickname: 'Wario',		email: 'wario@gmail.com',		password: 'asdfasdf',	user_role: Role.BASE },
+		{ nickname: 'Waluigi',	email: 'waluigi@gmail.com',	password: 'qwerqwer',	user_role: Role.BASE }
   ];
 
 	const promises = datas.map(async (u) => {

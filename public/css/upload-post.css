@@ -36,3 +36,9 @@
 	border-radius: 6px;
 	border: 1px solid #ccc;
 }
+
+.always-in-bottom-right {
+	position: fixed;
+	bottom: 0rem;
+	right: 0rem;
+}

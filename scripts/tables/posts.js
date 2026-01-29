@@ -17,13 +17,24 @@ function seed() {
 
 	// prettier-ignore
 	const datas = [
-		{ photo_name: 'image_01.jpeg', user_nickname: 'Luigi', description: 'foto bella' }
+		{ created_at: '2026-01-20 09:08:47', photo_name: 'image_01.png', user_nickname: 'Luigi', description: '#photo ecco una bella foto di un lago' },
+		{ created_at: '2026-01-21 10:20:00', photo_name: 'image_02.png', user_nickname: 'Mario', description: '#coding sto programmando in JavaScript per la mia nuova app' },
+		{ created_at: '2026-01-22 17:12:30', photo_name: 'image_03.png', user_nickname: 'Mario', description: '#game Elden Ring, inizio avventura' },
+		{ created_at: '2026-01-23 15:30:00', photo_name: 'image_04.png', user_nickname: 'Luigi', description: '#film Amici miei, momenti prima del famoso scherzo alla stazione' },
+		{ created_at: '2026-01-24 11:01:45', photo_name: 'image_05.png', user_nickname: 'Luigi', description: '#album mi piace questo album' },
+		{ created_at: '2026-01-25 20:00:00', photo_name: 'image_06.png', user_nickname: 'Mario', description: '#film Mr Bean, molto divertente' }
 	];
+
+	let photoTable = [];
 
 	const promises = datas.map(async (p) => {
 		const imagePath = path.resolve(`${seedImagesPath}/${p.photo_name}`);
 
-		p.photo_name = generateFilename(p.photo_name);
+		const photo_name = generateFilename(p.photo_name);
+
+		photoTable.push({ old: p.photo_name, new: photo_name });
+
+		p.photo_name = photo_name;
 
 		copyFile(imagePath, path.resolve(`${seedImagesDB}/${p.photo_name}`));
 
@@ -35,7 +46,10 @@ function seed() {
 	});
 
 	return Promise.all(promises)
-		.then(() => log('Posts seeded'))
+		.then(() => {
+			log('Posts seeded');
+			return photoTable;
+		})
 		.catch((err) => log(err));
 }
 
